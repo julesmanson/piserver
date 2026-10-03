@@ -4,7 +4,7 @@ PiServer 0.1.0 lovingly made with Python Pi (Pi for version 3.14.0)
 =============================
 Requires Python 3.10 or later (for X | Y union type hint syntax).
 A minimalist singleton HTTP server with config-driven webroot and optional settings.
-Complete client-side logging and an optional config-driven MIME whitelist. Functionality imported from the proven Python http.server library.
+Complete client-side logging and an optional config-driven MIME whitelist.
 HOW TO START — pick one:
 
   1. Double-click this file in File Explorer               <- easiest
