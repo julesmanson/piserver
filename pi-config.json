@@ -1,0 +1,76 @@
+{
+    "_readme": {
+        "version": "PiServer Beta 0.4.0 betaby Jules Manson, 2026. MIT License.",
+        "admin": "This entire _readme block may be safely removed.",
+        "urls": "Up to 3 heads served simultaneously: url1, url2, url3. Each has its own active/project-name/host/port/webroot. url2 and url3 inherit any key they omit from url1 EXCEPT project-name and webroot, which are never inherited. port is the one exception to plain inheritance: if omitted it defaults to url1.port+1 (url2) / +2 (url3) rather than copying url1.port verbatim, since two heads can't bind the same host:port. An active head missing project-name or webroot is skipped with a warning rather than crashing the others.",
+        "urls.url1.active": "Defaults to true if omitted — url1 is the one head that runs out of the box.",
+        "urls.url2.active": "Defaults to false if omitted.",
+        "urls.url3.active": "Defaults to false if omitted.",
+        "urls.*.project-name": "Label shown in the VS Code statusbar for this head. Required for any active head; never inherited.",
+        "urls.*.host": "127.0.0.1 = this machine only, 0.0.0.0 = accept connections from network. Inherited from url1 if omitted.",
+        "urls.*.port": "Port to listen on. url2/url3 default to url1.port+1 / +2 if omitted.",
+        "urls.*.webroot": "Absolute path to the directory served as site root. Required for any active head; never inherited.",
+        "path-to-server": "Absolute path to piserver.py itself. Read by the PiServer Statusbar VS Code extension so its Start button keeps working no matter where this project is moved to. Edit this value directly instead of hunting through VS Code Settings. Self-healed automatically if the extension ever has to search for it.",
+        "path-to-python": "Python interpreter the VS Code extension's Start button should launch piserver.py with. Empty/absent = plain \"python\" on PATH.",
+        "routes.shutdown": "POST — stops the server. Localhost only. Shuts down every active head at once, no matter which head's port received the request.",
+        "routes.log": "POST — write log entry. GET — read. DELETE — remove. Shared by all heads.",
+        "security.auth_token": "Bearer token required on log requests. Empty = disabled. Shared by all heads.",
+        "security.rate_limit_per_minute": "Max log POST requests per IP per 60 seconds. Shared by all heads.",
+        "security.max_content_bytes": "Max request body size in bytes. 65536 = 64KB. Shared by all heads.",
+        "mime_whitelist.enabled": "true = serve only listed types. false = serve all. Shared by all heads.",
+        "mime_whitelist.types": "Map of file extension to Content-Type value. Shared by all heads."
+    },
+    "urls": {
+        "url1": {
+            "active": true,
+            "project-name": "Foundry 148",
+            "host": "127.0.0.1",
+            "port": 8000,
+            "webroot": "C:\\Users\\Jules\\Documents\\ACTIVE PROJECTS\\REFACTORY\\foundry148\\"
+        },
+        "url2": {
+            "active": false,
+            "project-name": "",
+            "webroot": ""
+        },
+        "url3": {
+            "active": false,
+            "project-name": "",
+            "webroot": ""
+        }
+    },
+    "path-to-server": "C:\\Users\\Jules\\Documents\\ACTIVE PROJECTS\\APPLICATIONS\\piserver\\piserver.py",
+    "path-to-python": "python",
+    "routes": {
+        "shutdown": "/shutdown",
+        "log": "/log"
+    },
+    "security": {
+        "auth_token": "",
+        "rate_limit_per_minute": 60,
+        "max_content_bytes": 65536
+    },
+    "mime_whitelist": {
+        "enabled": false,
+        "types": {
+            ".html": "text/html",
+            ".css": "text/css",
+            ".json": "application/json",
+            ".js": "text/javascript",
+            ".mjs": "text/javascript",
+            ".md": "text/markdown",
+            ".png": "image/png",
+            ".jpg": "image/jpeg",
+            ".jpeg": "image/jpeg",
+            ".svg": "image/svg+xml",
+            ".txt": "text/plain",
+            ".ico": "image/x-icon",
+            ".glb": "model/gltf-binary",
+            ".gltf": "model/gltf+json",
+            ".webp": "image/webp",
+            ".woff2": "font/woff2",
+            ".woff": "font/woff",
+            ".ttf": "font/ttf"
+        }
+    }
+}

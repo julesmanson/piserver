@@ -1,0 +1,924 @@
+UNCAUGHTEVENTS.LOG — uncaught JavaScript errors caught by window event listeners
+
+timestamp : August 16, 2026 12:19:11 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 101
+col       : 24
+message   : Uncaught TypeError: Spoofed TypeError
+stack     : TypeError: Spoofed TypeError
+                at http://localhost:8000/assets/app/mock-orchestrator.js:101:30
+
+Spoofed direct logEvent() at 2026-08-16T19:19:11.366Z
+
+timestamp : August 16, 2026 12:19:11 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 102
+col       : 24
+message   : Uncaught RangeError: Invalid array length
+stack     : RangeError: Invalid array length
+                at http://localhost:8000/assets/app/mock-orchestrator.js:102:24
+
+timestamp : August 16, 2026 12:19:11 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 1
+col       : 4
+message   : Uncaught SyntaxError: Unexpected end of input
+stack     : SyntaxError: Unexpected end of input
+                at http://localhost:8000/assets/app/mock-orchestrator.js:103:24
+
+timestamp : August 16, 2026 12:19:11 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 104
+col       : 24
+message   : Uncaught URIError: URI malformed
+stack     : URIError: URI malformed
+                at decodeURIComponent (<anonymous>)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:104:24
+
+timestamp : August 16, 2026 12:19:11 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : All promises were rejected
+stack     : AggregateError: All promises were rejected
+
+timestamp : August 16, 2026 12:19:11 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : Spoofed ReferenceError
+stack     : ReferenceError: Spoofed ReferenceError
+                at testUncaughtEvents (http://localhost:8000/assets/app/mock-orchestrator.js:107:20)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:327:13
+                at runAllTests (http://localhost:8000/assets/app/mock-orchestrator.js:331:11)
+
+timestamp : August 16, 2026 12:20:57 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 101
+col       : 24
+message   : Uncaught TypeError: Spoofed TypeError
+stack     : TypeError: Spoofed TypeError
+                at http://localhost:8000/assets/app/mock-orchestrator.js:101:30
+
+Spoofed direct logEvent() at 2026-08-16T19:20:57.616Z
+
+timestamp : August 16, 2026 12:20:57 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 102
+col       : 24
+message   : Uncaught RangeError: Invalid array length
+stack     : RangeError: Invalid array length
+                at http://localhost:8000/assets/app/mock-orchestrator.js:102:24
+
+timestamp : August 16, 2026 12:20:57 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 1
+col       : 4
+message   : Uncaught SyntaxError: Unexpected end of input
+stack     : SyntaxError: Unexpected end of input
+                at http://localhost:8000/assets/app/mock-orchestrator.js:103:24
+
+timestamp : August 16, 2026 12:20:57 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 104
+col       : 24
+message   : Uncaught URIError: URI malformed
+stack     : URIError: URI malformed
+                at decodeURIComponent (<anonymous>)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:104:24
+
+timestamp : August 16, 2026 12:20:57 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : Spoofed ReferenceError
+stack     : ReferenceError: Spoofed ReferenceError
+                at testUncaughtEvents (http://localhost:8000/assets/app/mock-orchestrator.js:107:20)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:327:13
+                at HTMLButtonElement.runAllTests (http://localhost:8000/assets/app/mock-orchestrator.js:331:11)
+
+timestamp : August 16, 2026 12:20:57 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : All promises were rejected
+stack     : AggregateError: All promises were rejected
+
+Spoofed direct logEvent() at 2026-08-16T19:31:49.132Z
+
+timestamp : August 16, 2026 12:31:49 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 101
+col       : 24
+message   : Uncaught TypeError: Spoofed TypeError
+stack     : TypeError: Spoofed TypeError
+                at http://localhost:8000/assets/app/mock-orchestrator.js:101:30
+
+timestamp : August 16, 2026 12:31:49 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 102
+col       : 24
+message   : Uncaught RangeError: Invalid array length
+stack     : RangeError: Invalid array length
+                at http://localhost:8000/assets/app/mock-orchestrator.js:102:24
+
+timestamp : August 16, 2026 12:31:49 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 1
+col       : 4
+message   : Uncaught SyntaxError: Unexpected end of input
+stack     : SyntaxError: Unexpected end of input
+                at http://localhost:8000/assets/app/mock-orchestrator.js:103:24
+
+timestamp : August 16, 2026 12:31:49 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 104
+col       : 24
+message   : Uncaught URIError: URI malformed
+stack     : URIError: URI malformed
+                at decodeURIComponent (<anonymous>)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:104:24
+
+timestamp : August 16, 2026 12:31:49 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : Spoofed ReferenceError
+stack     : ReferenceError: Spoofed ReferenceError
+                at testUncaughtEvents (http://localhost:8000/assets/app/mock-orchestrator.js:107:20)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:327:13
+                at runAllTests (http://localhost:8000/assets/app/mock-orchestrator.js:331:11)
+
+timestamp : August 16, 2026 12:31:49 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : All promises were rejected
+stack     : AggregateError: All promises were rejected
+
+timestamp : August 16, 2026 17:30:49 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : Failed to fetch
+stack     : TypeError: Failed to fetch
+                at _post (http://localhost:8000/assets/app/logger.js:171:9)
+                at _write (http://localhost:8000/assets/app/logger.js:190:5)
+                at http://localhost:8000/assets/app/logger.js:227:9
+
+timestamp : August 16, 2026 17:30:49 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : Failed to fetch
+stack     : TypeError: Failed to fetch
+                at _post (http://localhost:8000/assets/app/logger.js:171:9)
+                at _write (http://localhost:8000/assets/app/logger.js:190:5)
+                at http://localhost:8000/assets/app/logger.js:227:9
+
+timestamp : August 16, 2026 17:30:51 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : Failed to fetch
+stack     : TypeError: Failed to fetch
+                at _post (http://localhost:8000/assets/app/logger.js:171:9)
+                at _write (http://localhost:8000/assets/app/logger.js:190:5)
+                at http://localhost:8000/assets/app/logger.js:227:9
+
+timestamp : August 16, 2026 17:30:51 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : Failed to fetch
+stack     : TypeError: Failed to fetch
+                at _post (http://localhost:8000/assets/app/logger.js:171:9)
+                at _write (http://localhost:8000/assets/app/logger.js:190:5)
+                at http://localhost:8000/assets/app/logger.js:227:9
+
+timestamp : August 16, 2026 17:30:51 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : Failed to fetch
+stack     : TypeError: Failed to fetch
+                at _post (http://localhost:8000/assets/app/logger.js:171:9)
+                at _write (http://localhost:8000/assets/app/logger.js:190:5)
+                at http://localhost:8000/assets/app/logger.js:227:9
+
+timestamp : August 16, 2026 17:30:51 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : Failed to fetch
+stack     : TypeError: Failed to fetch
+                at _post (http://localhost:8000/assets/app/logger.js:171:9)
+                at _write (http://localhost:8000/assets/app/logger.js:190:5)
+                at http://localhost:8000/assets/app/logger.js:227:9
+
+timestamp : August 16, 2026 17:30:52 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : Failed to fetch
+stack     : TypeError: Failed to fetch
+                at _post (http://localhost:8000/assets/app/logger.js:171:9)
+                at _write (http://localhost:8000/assets/app/logger.js:190:5)
+                at http://localhost:8000/assets/app/logger.js:227:9
+
+timestamp : August 16, 2026 17:30:53 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : Failed to fetch
+stack     : TypeError: Failed to fetch
+                at _post (http://localhost:8000/assets/app/logger.js:171:9)
+                at _write (http://localhost:8000/assets/app/logger.js:190:5)
+                at http://localhost:8000/assets/app/logger.js:227:9
+
+timestamp : August 16, 2026 17:30:54 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : Failed to fetch
+stack     : TypeError: Failed to fetch
+                at _post (http://localhost:8000/assets/app/logger.js:171:9)
+                at _write (http://localhost:8000/assets/app/logger.js:190:5)
+                at http://localhost:8000/assets/app/logger.js:227:9
+
+Spoofed direct logEvent() at 2026-08-17T00:31:00.523Z
+
+timestamp : August 16, 2026 17:31:00 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 101
+col       : 24
+message   : Uncaught TypeError: Spoofed TypeError
+stack     : TypeError: Spoofed TypeError
+                at http://localhost:8000/assets/app/mock-orchestrator.js:101:30
+
+timestamp : August 16, 2026 17:31:00 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 102
+col       : 24
+message   : Uncaught RangeError: Invalid array length
+stack     : RangeError: Invalid array length
+                at http://localhost:8000/assets/app/mock-orchestrator.js:102:24
+
+timestamp : August 16, 2026 17:31:00 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 1
+col       : 4
+message   : Uncaught SyntaxError: Unexpected end of input
+stack     : SyntaxError: Unexpected end of input
+                at http://localhost:8000/assets/app/mock-orchestrator.js:103:24
+
+timestamp : August 16, 2026 17:31:00 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 104
+col       : 24
+message   : Uncaught URIError: URI malformed
+stack     : URIError: URI malformed
+                at decodeURIComponent (<anonymous>)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:104:24
+
+timestamp : August 16, 2026 17:31:00 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : Spoofed ReferenceError
+stack     : ReferenceError: Spoofed ReferenceError
+                at testUncaughtEvents (http://localhost:8000/assets/app/mock-orchestrator.js:107:20)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:327:13
+                at HTMLButtonElement.runAllTests (http://localhost:8000/assets/app/mock-orchestrator.js:331:11)
+
+timestamp : August 16, 2026 17:31:00 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : All promises were rejected
+stack     : AggregateError: All promises were rejected
+
+Spoofed direct logEvent() at 2026-08-17T00:32:34.910Z
+
+timestamp : August 16, 2026 17:32:34 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 101
+col       : 24
+message   : Uncaught TypeError: Spoofed TypeError
+stack     : TypeError: Spoofed TypeError
+                at http://localhost:8000/assets/app/mock-orchestrator.js:101:30
+
+timestamp : August 16, 2026 17:32:34 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 102
+col       : 24
+message   : Uncaught RangeError: Invalid array length
+stack     : RangeError: Invalid array length
+                at http://localhost:8000/assets/app/mock-orchestrator.js:102:24
+
+timestamp : August 16, 2026 17:32:34 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 1
+col       : 4
+message   : Uncaught SyntaxError: Unexpected end of input
+stack     : SyntaxError: Unexpected end of input
+                at http://localhost:8000/assets/app/mock-orchestrator.js:103:24
+
+timestamp : August 16, 2026 17:32:34 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 104
+col       : 24
+message   : Uncaught URIError: URI malformed
+stack     : URIError: URI malformed
+                at decodeURIComponent (<anonymous>)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:104:24
+
+timestamp : August 16, 2026 17:32:34 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : Spoofed ReferenceError
+stack     : ReferenceError: Spoofed ReferenceError
+                at testUncaughtEvents (http://localhost:8000/assets/app/mock-orchestrator.js:107:20)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:327:13
+                at HTMLButtonElement.runAllTests (http://localhost:8000/assets/app/mock-orchestrator.js:331:11)
+
+timestamp : August 16, 2026 17:32:34 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : All promises were rejected
+stack     : AggregateError: All promises were rejected
+
+Spoofed direct logEvent() at 2026-08-17T00:32:43.074Z
+
+timestamp : August 16, 2026 17:32:43 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 101
+col       : 24
+message   : Uncaught TypeError: Spoofed TypeError
+stack     : TypeError: Spoofed TypeError
+                at http://localhost:8000/assets/app/mock-orchestrator.js:101:30
+
+timestamp : August 16, 2026 17:32:43 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 102
+col       : 24
+message   : Uncaught RangeError: Invalid array length
+stack     : RangeError: Invalid array length
+                at http://localhost:8000/assets/app/mock-orchestrator.js:102:24
+
+timestamp : August 16, 2026 17:32:43 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 1
+col       : 4
+message   : Uncaught SyntaxError: Unexpected end of input
+stack     : SyntaxError: Unexpected end of input
+                at http://localhost:8000/assets/app/mock-orchestrator.js:103:24
+
+timestamp : August 16, 2026 17:32:43 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : Spoofed ReferenceError
+stack     : ReferenceError: Spoofed ReferenceError
+                at testUncaughtEvents (http://localhost:8000/assets/app/mock-orchestrator.js:107:20)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:327:13
+                at HTMLButtonElement.runAllTests (http://localhost:8000/assets/app/mock-orchestrator.js:331:11)
+
+timestamp : August 16, 2026 17:32:43 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 104
+col       : 24
+message   : Uncaught URIError: URI malformed
+stack     : URIError: URI malformed
+                at decodeURIComponent (<anonymous>)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:104:24
+
+timestamp : August 16, 2026 17:32:43 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : All promises were rejected
+stack     : AggregateError: All promises were rejected
+
+Spoofed direct logEvent() at 2026-08-17T01:05:21.913Z
+
+timestamp : August 16, 2026 18:05:21 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 101
+col       : 24
+message   : Uncaught TypeError: Spoofed TypeError
+stack     : TypeError: Spoofed TypeError
+                at http://localhost:8000/assets/app/mock-orchestrator.js:101:30
+
+timestamp : August 16, 2026 18:05:21 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 102
+col       : 24
+message   : Uncaught RangeError: Invalid array length
+stack     : RangeError: Invalid array length
+                at http://localhost:8000/assets/app/mock-orchestrator.js:102:24
+
+timestamp : August 16, 2026 18:05:21 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 1
+col       : 4
+message   : Uncaught SyntaxError: Unexpected end of input
+stack     : SyntaxError: Unexpected end of input
+                at http://localhost:8000/assets/app/mock-orchestrator.js:103:24
+
+timestamp : August 16, 2026 18:05:21 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 104
+col       : 24
+message   : Uncaught URIError: URI malformed
+stack     : URIError: URI malformed
+                at decodeURIComponent (<anonymous>)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:104:24
+
+timestamp : August 16, 2026 18:05:21 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : Spoofed ReferenceError
+stack     : ReferenceError: Spoofed ReferenceError
+                at testUncaughtEvents (http://localhost:8000/assets/app/mock-orchestrator.js:107:20)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:327:13
+                at runAllTests (http://localhost:8000/assets/app/mock-orchestrator.js:331:11)
+
+timestamp : August 16, 2026 18:05:21 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : All promises were rejected
+stack     : AggregateError: All promises were rejected
+
+Spoofed direct logEvent() at 2026-08-17T01:05:52.499Z
+
+timestamp : August 16, 2026 18:05:52 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 101
+col       : 24
+message   : Uncaught TypeError: Spoofed TypeError
+stack     : TypeError: Spoofed TypeError
+                at http://localhost:8000/assets/app/mock-orchestrator.js:101:30
+
+timestamp : August 16, 2026 18:05:52 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 102
+col       : 24
+message   : Uncaught RangeError: Invalid array length
+stack     : RangeError: Invalid array length
+                at http://localhost:8000/assets/app/mock-orchestrator.js:102:24
+
+timestamp : August 16, 2026 18:05:52 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 1
+col       : 4
+message   : Uncaught SyntaxError: Unexpected end of input
+stack     : SyntaxError: Unexpected end of input
+                at http://localhost:8000/assets/app/mock-orchestrator.js:103:24
+
+timestamp : August 16, 2026 18:05:52 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : Spoofed ReferenceError
+stack     : ReferenceError: Spoofed ReferenceError
+                at testUncaughtEvents (http://localhost:8000/assets/app/mock-orchestrator.js:107:20)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:327:13
+                at HTMLButtonElement.runAllTests (http://localhost:8000/assets/app/mock-orchestrator.js:331:11)
+
+timestamp : August 16, 2026 18:05:52 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 104
+col       : 24
+message   : Uncaught URIError: URI malformed
+stack     : URIError: URI malformed
+                at decodeURIComponent (<anonymous>)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:104:24
+
+timestamp : August 16, 2026 18:05:52 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : All promises were rejected
+stack     : AggregateError: All promises were rejected
+
+Spoofed direct logEvent() at 2026-08-17T01:07:23.353Z
+
+timestamp : August 16, 2026 18:07:23 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 101
+col       : 24
+message   : Uncaught TypeError: Spoofed TypeError
+stack     : TypeError: Spoofed TypeError
+                at http://localhost:8000/assets/app/mock-orchestrator.js:101:30
+
+timestamp : August 16, 2026 18:07:23 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 102
+col       : 24
+message   : Uncaught RangeError: Invalid array length
+stack     : RangeError: Invalid array length
+                at http://localhost:8000/assets/app/mock-orchestrator.js:102:24
+
+timestamp : August 16, 2026 18:07:23 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 1
+col       : 4
+message   : Uncaught SyntaxError: Unexpected end of input
+stack     : SyntaxError: Unexpected end of input
+                at http://localhost:8000/assets/app/mock-orchestrator.js:103:24
+
+timestamp : August 16, 2026 18:07:23 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 104
+col       : 24
+message   : Uncaught URIError: URI malformed
+stack     : URIError: URI malformed
+                at decodeURIComponent (<anonymous>)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:104:24
+
+timestamp : August 16, 2026 18:07:23 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : Spoofed ReferenceError
+stack     : ReferenceError: Spoofed ReferenceError
+                at testUncaughtEvents (http://localhost:8000/assets/app/mock-orchestrator.js:107:20)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:327:13
+                at runAllTests (http://localhost:8000/assets/app/mock-orchestrator.js:331:11)
+
+timestamp : August 16, 2026 18:07:23 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : All promises were rejected
+stack     : AggregateError: All promises were rejected
+
+timestamp : August 16, 2026 21:49:24 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 101
+col       : 24
+message   : Uncaught TypeError: Spoofed TypeError
+stack     : TypeError: Spoofed TypeError
+                at http://localhost:8000/assets/app/mock-orchestrator.js:101:30
+
+Spoofed direct logEvent() at 2026-08-17T04:49:24.894Z
+
+timestamp : August 16, 2026 21:49:24 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 102
+col       : 24
+message   : Uncaught RangeError: Invalid array length
+stack     : RangeError: Invalid array length
+                at http://localhost:8000/assets/app/mock-orchestrator.js:102:24
+
+timestamp : August 16, 2026 21:49:24 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 1
+col       : 4
+message   : Uncaught SyntaxError: Unexpected end of input
+stack     : SyntaxError: Unexpected end of input
+                at http://localhost:8000/assets/app/mock-orchestrator.js:103:24
+
+timestamp : August 16, 2026 21:49:24 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 104
+col       : 24
+message   : Uncaught URIError: URI malformed
+stack     : URIError: URI malformed
+                at decodeURIComponent (<anonymous>)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:104:24
+
+timestamp : August 16, 2026 21:49:24 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : Spoofed ReferenceError
+stack     : ReferenceError: Spoofed ReferenceError
+                at testUncaughtEvents (http://localhost:8000/assets/app/mock-orchestrator.js:107:20)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:327:13
+                at runAllTests (http://localhost:8000/assets/app/mock-orchestrator.js:331:11)
+
+timestamp : August 16, 2026 21:49:24 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : All promises were rejected
+stack     : AggregateError: All promises were rejected
+
+Spoofed direct logEvent() at 2026-08-17T04:50:32.506Z
+
+timestamp : August 16, 2026 21:50:32 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 101
+col       : 24
+message   : Uncaught TypeError: Spoofed TypeError
+stack     : TypeError: Spoofed TypeError
+                at http://localhost:8000/assets/app/mock-orchestrator.js:101:30
+
+timestamp : August 16, 2026 21:50:32 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 102
+col       : 24
+message   : Uncaught RangeError: Invalid array length
+stack     : RangeError: Invalid array length
+                at http://localhost:8000/assets/app/mock-orchestrator.js:102:24
+
+timestamp : August 16, 2026 21:50:32 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 1
+col       : 4
+message   : Uncaught SyntaxError: Unexpected end of input
+stack     : SyntaxError: Unexpected end of input
+                at http://localhost:8000/assets/app/mock-orchestrator.js:103:24
+
+timestamp : August 16, 2026 21:50:32 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 104
+col       : 24
+message   : Uncaught URIError: URI malformed
+stack     : URIError: URI malformed
+                at decodeURIComponent (<anonymous>)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:104:24
+
+timestamp : August 16, 2026 21:50:32 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : Spoofed ReferenceError
+stack     : ReferenceError: Spoofed ReferenceError
+                at testUncaughtEvents (http://localhost:8000/assets/app/mock-orchestrator.js:107:20)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:327:13
+                at HTMLButtonElement.runAllTests (http://localhost:8000/assets/app/mock-orchestrator.js:331:11)
+
+timestamp : August 16, 2026 21:50:32 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : All promises were rejected
+stack     : AggregateError: All promises were rejected
+
+Spoofed direct logEvent() at 2026-08-17T19:05:27.408Z
+
+timestamp : August 17, 2026 12:05:27 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 101
+col       : 24
+message   : Uncaught TypeError: Spoofed TypeError
+stack     : TypeError: Spoofed TypeError
+                at http://localhost:8000/assets/app/mock-orchestrator.js:101:30
+
+timestamp : August 17, 2026 12:05:27 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 102
+col       : 24
+message   : Uncaught RangeError: Invalid array length
+stack     : RangeError: Invalid array length
+                at http://localhost:8000/assets/app/mock-orchestrator.js:102:24
+
+timestamp : August 17, 2026 12:05:27 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 1
+col       : 4
+message   : Uncaught SyntaxError: Unexpected end of input
+stack     : SyntaxError: Unexpected end of input
+                at http://localhost:8000/assets/app/mock-orchestrator.js:103:24
+
+timestamp : August 17, 2026 12:05:27 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : All promises were rejected
+stack     : AggregateError: All promises were rejected
+
+timestamp : August 17, 2026 12:05:27 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 104
+col       : 24
+message   : Uncaught URIError: URI malformed
+stack     : URIError: URI malformed
+                at decodeURIComponent (<anonymous>)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:104:24
+
+timestamp : August 17, 2026 12:05:27 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : Spoofed ReferenceError
+stack     : ReferenceError: Spoofed ReferenceError
+                at testUncaughtEvents (http://localhost:8000/assets/app/mock-orchestrator.js:107:20)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:327:13
+                at runAllTests (http://localhost:8000/assets/app/mock-orchestrator.js:331:11)
+
+Spoofed direct logEvent() at 2026-08-17T23:22:24.786Z
+
+timestamp : August 17, 2026 16:22:24 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 101
+col       : 24
+message   : Uncaught TypeError: Spoofed TypeError
+stack     : TypeError: Spoofed TypeError
+                at http://localhost:8000/assets/app/mock-orchestrator.js:101:30
+
+timestamp : August 17, 2026 16:22:24 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 102
+col       : 24
+message   : Uncaught RangeError: Invalid array length
+stack     : RangeError: Invalid array length
+                at http://localhost:8000/assets/app/mock-orchestrator.js:102:24
+
+timestamp : August 17, 2026 16:22:24 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 1
+col       : 4
+message   : Uncaught SyntaxError: Unexpected end of input
+stack     : SyntaxError: Unexpected end of input
+                at http://localhost:8000/assets/app/mock-orchestrator.js:103:24
+
+timestamp : August 17, 2026 16:22:24 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 104
+col       : 24
+message   : Uncaught URIError: URI malformed
+stack     : URIError: URI malformed
+                at decodeURIComponent (<anonymous>)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:104:24
+
+timestamp : August 17, 2026 16:22:24 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : Spoofed ReferenceError
+stack     : ReferenceError: Spoofed ReferenceError
+                at testUncaughtEvents (http://localhost:8000/assets/app/mock-orchestrator.js:107:20)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:327:13
+                at runAllTests (http://localhost:8000/assets/app/mock-orchestrator.js:331:11)
+
+timestamp : August 17, 2026 16:22:24 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : All promises were rejected
+stack     : AggregateError: All promises were rejected
+
+Spoofed direct logEvent() at 2026-08-17T23:23:00.685Z
+
+timestamp : August 17, 2026 16:23:00 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 101
+col       : 24
+message   : Uncaught TypeError: Spoofed TypeError
+stack     : TypeError: Spoofed TypeError
+                at http://localhost:8000/assets/app/mock-orchestrator.js:101:30
+
+timestamp : August 17, 2026 16:23:00 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 102
+col       : 24
+message   : Uncaught RangeError: Invalid array length
+stack     : RangeError: Invalid array length
+                at http://localhost:8000/assets/app/mock-orchestrator.js:102:24
+
+timestamp : August 17, 2026 16:23:00 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 104
+col       : 24
+message   : Uncaught URIError: URI malformed
+stack     : URIError: URI malformed
+                at decodeURIComponent (<anonymous>)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:104:24
+
+timestamp : August 17, 2026 16:23:00 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 1
+col       : 4
+message   : Uncaught SyntaxError: Unexpected end of input
+stack     : SyntaxError: Unexpected end of input
+                at http://localhost:8000/assets/app/mock-orchestrator.js:103:24
+
+timestamp : August 17, 2026 16:23:00 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : All promises were rejected
+stack     : AggregateError: All promises were rejected
+
+timestamp : August 17, 2026 16:23:00 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : Spoofed ReferenceError
+stack     : ReferenceError: Spoofed ReferenceError
+                at testUncaughtEvents (http://localhost:8000/assets/app/mock-orchestrator.js:107:20)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:327:13
+                at runAllTests (http://localhost:8000/assets/app/mock-orchestrator.js:331:11)
+
+Spoofed direct logEvent() at 2026-08-17T23:23:12.882Z
+
+timestamp : August 17, 2026 16:23:12 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 101
+col       : 24
+message   : Uncaught TypeError: Spoofed TypeError
+stack     : TypeError: Spoofed TypeError
+                at http://localhost:8000/assets/app/mock-orchestrator.js:101:30
+
+timestamp : August 17, 2026 16:23:12 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 102
+col       : 24
+message   : Uncaught RangeError: Invalid array length
+stack     : RangeError: Invalid array length
+                at http://localhost:8000/assets/app/mock-orchestrator.js:102:24
+
+timestamp : August 17, 2026 16:23:12 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 1
+col       : 4
+message   : Uncaught SyntaxError: Unexpected end of input
+stack     : SyntaxError: Unexpected end of input
+                at http://localhost:8000/assets/app/mock-orchestrator.js:103:24
+
+timestamp : August 17, 2026 16:23:12 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 104
+col       : 24
+message   : Uncaught URIError: URI malformed
+stack     : URIError: URI malformed
+                at decodeURIComponent (<anonymous>)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:104:24
+
+timestamp : August 17, 2026 16:23:12 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : Spoofed ReferenceError
+stack     : ReferenceError: Spoofed ReferenceError
+                at testUncaughtEvents (http://localhost:8000/assets/app/mock-orchestrator.js:107:20)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:327:13
+                at runAllTests (http://localhost:8000/assets/app/mock-orchestrator.js:331:11)
+
+timestamp : August 17, 2026 16:23:12 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : All promises were rejected
+stack     : AggregateError: All promises were rejected
+
+Spoofed direct logEvent() at 2026-08-18T04:06:34.498Z
+
+timestamp : August 17, 2026 21:06:34 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 101
+col       : 24
+message   : Uncaught TypeError: Spoofed TypeError
+stack     : TypeError: Spoofed TypeError
+                at http://localhost:8000/assets/app/mock-orchestrator.js:101:30
+
+timestamp : August 17, 2026 21:06:34 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 102
+col       : 24
+message   : Uncaught RangeError: Invalid array length
+stack     : RangeError: Invalid array length
+                at http://localhost:8000/assets/app/mock-orchestrator.js:102:24
+
+timestamp : August 17, 2026 21:06:34 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 1
+col       : 4
+message   : Uncaught SyntaxError: Unexpected end of input
+stack     : SyntaxError: Unexpected end of input
+                at http://localhost:8000/assets/app/mock-orchestrator.js:103:24
+
+timestamp : August 17, 2026 21:06:34 Los Angeles (PT)
+source    : http://localhost:8000/assets/app/mock-orchestrator.js
+line      : 104
+col       : 24
+message   : Uncaught URIError: URI malformed
+stack     : URIError: URI malformed
+                at decodeURIComponent (<anonymous>)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:104:24
+
+timestamp : August 17, 2026 21:06:34 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : Spoofed ReferenceError
+stack     : ReferenceError: Spoofed ReferenceError
+                at testUncaughtEvents (http://localhost:8000/assets/app/mock-orchestrator.js:107:20)
+                at http://localhost:8000/assets/app/mock-orchestrator.js:327:13
+                at runAllTests (http://localhost:8000/assets/app/mock-orchestrator.js:331:11)
+
+timestamp : August 17, 2026 21:06:34 Los Angeles (PT)
+source    : http://localhost:8000/
+line      : 0
+col       : 0
+message   : All promises were rejected
+stack     : AggregateError: All promises were rejected
+

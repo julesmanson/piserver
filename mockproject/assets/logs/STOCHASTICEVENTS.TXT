@@ -1,0 +1,454 @@
+STOCHASTICEVENTS.TXT — stochastic errors outside application control
+
+Spoofed direct stochastic event at 2026-08-16T19:19:11.367Z
+
+timestamp : August 16, 2026 12:19:11 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-style-1786907951367.css
+
+timestamp : August 16, 2026 12:19:12 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-script-1786907951367.js
+
+timestamp : August 16, 2026 12:19:12 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-1-1786907951367.png
+
+timestamp : August 16, 2026 12:19:12 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-2-1786907951367.png
+
+timestamp : August 16, 2026 12:19:12 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-3-1786907951367.png
+
+Spoofed direct stochastic event at 2026-08-16T19:20:57.617Z
+
+timestamp : August 16, 2026 12:20:57 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-style-1786908057617.css
+
+timestamp : August 16, 2026 12:20:58 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-1-1786908057617.png
+
+timestamp : August 16, 2026 12:20:58 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-script-1786908057617.js
+
+timestamp : August 16, 2026 12:20:58 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-2-1786908057617.png
+
+timestamp : August 16, 2026 12:20:59 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-3-1786908057617.png
+
+Spoofed direct stochastic event at 2026-08-16T19:31:49.135Z
+
+timestamp : August 16, 2026 12:31:49 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-style-1786908709133.css
+
+timestamp : August 16, 2026 12:31:50 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-script-1786908709133.js
+
+timestamp : August 16, 2026 12:31:50 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-1-1786908709133.png
+
+timestamp : August 16, 2026 12:31:50 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-2-1786908709133.png
+
+timestamp : August 16, 2026 12:31:50 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-3-1786908709133.png
+
+timestamp : August 16, 2026 17:30:56 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-1-1786925768686.png
+
+timestamp : August 16, 2026 17:30:56 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-script-1786925768686.js
+
+timestamp : August 16, 2026 17:30:56 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-2-1786925768686.png
+
+timestamp : August 16, 2026 17:30:56 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-3-1786925768686.png
+
+Spoofed direct stochastic event at 2026-08-17T00:31:00.524Z
+
+timestamp : August 16, 2026 17:31:00 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-style-1786926660524.css
+
+timestamp : August 16, 2026 17:31:01 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-1-1786926660524.png
+
+timestamp : August 16, 2026 17:31:01 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-2-1786926660524.png
+
+timestamp : August 16, 2026 17:31:01 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-script-1786926660524.js
+
+timestamp : August 16, 2026 17:31:02 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-3-1786926660524.png
+
+Spoofed direct stochastic event at 2026-08-17T00:32:34.911Z
+
+timestamp : August 16, 2026 17:32:35 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-style-1786926754911.css
+
+timestamp : August 16, 2026 17:32:35 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-script-1786926754911.js
+
+timestamp : August 16, 2026 17:32:35 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-1-1786926754911.png
+
+timestamp : August 16, 2026 17:32:35 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-2-1786926754911.png
+
+timestamp : August 16, 2026 17:32:36 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-3-1786926754911.png
+
+Spoofed direct stochastic event at 2026-08-17T00:32:43.075Z
+
+timestamp : August 16, 2026 17:32:43 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-style-1786926763074.css
+
+timestamp : August 16, 2026 17:32:44 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-script-1786926763074.js
+
+timestamp : August 16, 2026 17:32:44 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-1-1786926763074.png
+
+timestamp : August 16, 2026 17:32:44 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-2-1786926763074.png
+
+timestamp : August 16, 2026 17:32:44 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-3-1786926763074.png
+
+Spoofed direct stochastic event at 2026-08-17T01:05:21.914Z
+
+timestamp : August 16, 2026 18:05:22 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-style-1786928721914.css
+
+timestamp : August 16, 2026 18:05:22 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-1-1786928721914.png
+
+timestamp : August 16, 2026 18:05:22 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-script-1786928721914.js
+
+timestamp : August 16, 2026 18:05:22 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-2-1786928721914.png
+
+timestamp : August 16, 2026 18:05:23 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-3-1786928721914.png
+
+Spoofed direct stochastic event at 2026-08-17T01:05:52.500Z
+
+timestamp : August 16, 2026 18:05:52 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-style-1786928752499.css
+
+timestamp : August 16, 2026 18:05:53 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-script-1786928752499.js
+
+timestamp : August 16, 2026 18:05:53 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-2-1786928752499.png
+
+timestamp : August 16, 2026 18:05:53 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-1-1786928752499.png
+
+timestamp : August 16, 2026 18:05:54 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-3-1786928752499.png
+
+Spoofed direct stochastic event at 2026-08-17T01:07:23.353Z
+
+timestamp : August 16, 2026 18:07:23 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-style-1786928843353.css
+
+timestamp : August 16, 2026 18:07:24 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-script-1786928843353.js
+
+timestamp : August 16, 2026 18:07:24 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-2-1786928843353.png
+
+timestamp : August 16, 2026 18:07:24 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-1-1786928843353.png
+
+timestamp : August 16, 2026 18:07:24 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-3-1786928843353.png
+
+Spoofed direct stochastic event at 2026-08-17T04:49:24.896Z
+
+timestamp : August 16, 2026 21:49:25 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-style-1786942164895.css
+
+timestamp : August 16, 2026 21:49:25 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-script-1786942164895.js
+
+timestamp : August 16, 2026 21:49:25 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-1-1786942164895.png
+
+timestamp : August 16, 2026 21:49:25 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-2-1786942164895.png
+
+timestamp : August 16, 2026 21:49:26 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-3-1786942164895.png
+
+Spoofed direct stochastic event at 2026-08-17T04:50:32.507Z
+
+timestamp : August 16, 2026 21:50:32 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-style-1786942232506.css
+
+timestamp : August 16, 2026 21:50:33 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-script-1786942232506.js
+
+timestamp : August 16, 2026 21:50:33 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-1-1786942232506.png
+
+timestamp : August 16, 2026 21:50:33 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-2-1786942232506.png
+
+timestamp : August 16, 2026 21:50:33 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-3-1786942232506.png
+
+Spoofed direct stochastic event at 2026-08-17T19:05:27.409Z
+
+timestamp : August 17, 2026 12:05:27 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-style-1786993527409.css
+
+timestamp : August 17, 2026 12:05:28 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-1-1786993527409.png
+
+timestamp : August 17, 2026 12:05:28 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-2-1786993527409.png
+
+timestamp : August 17, 2026 12:05:28 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-script-1786993527409.js
+
+timestamp : August 17, 2026 12:05:29 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-3-1786993527409.png
+
+Spoofed direct stochastic event at 2026-08-17T23:22:24.789Z
+
+timestamp : August 17, 2026 16:22:25 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-style-1787008944787.css
+
+timestamp : August 17, 2026 16:22:25 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-1-1787008944787.png
+
+timestamp : August 17, 2026 16:22:25 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-script-1787008944787.js
+
+timestamp : August 17, 2026 16:22:25 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-2-1787008944787.png
+
+timestamp : August 17, 2026 16:22:26 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-3-1787008944787.png
+
+Spoofed direct stochastic event at 2026-08-17T23:23:00.687Z
+
+timestamp : August 17, 2026 16:23:01 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-style-1787008980686.css
+
+timestamp : August 17, 2026 16:23:01 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-1-1787008980686.png
+
+timestamp : August 17, 2026 16:23:01 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-script-1787008980686.js
+
+timestamp : August 17, 2026 16:23:02 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-2-1787008980686.png
+
+timestamp : August 17, 2026 16:23:02 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-3-1787008980686.png
+
+Spoofed direct stochastic event at 2026-08-17T23:23:12.885Z
+
+timestamp : August 17, 2026 16:23:13 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-style-1787008992884.css
+
+timestamp : August 17, 2026 16:23:13 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-script-1787008992884.js
+
+timestamp : August 17, 2026 16:23:13 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-1-1787008992884.png
+
+timestamp : August 17, 2026 16:23:14 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-2-1787008992884.png
+
+timestamp : August 17, 2026 16:23:14 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-3-1787008992884.png
+
+Spoofed direct stochastic event at 2026-08-18T04:06:34.498Z
+
+timestamp : August 17, 2026 21:06:34 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-style-1787025994498.css
+
+timestamp : August 17, 2026 21:06:35 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-1-1787025994498.png
+
+timestamp : August 17, 2026 21:06:35 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-script-1787025994498.js
+
+timestamp : August 17, 2026 21:06:35 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-2-1787025994498.png
+
+timestamp : August 17, 2026 21:06:36 Los Angeles (PT)
+type      : network
+message   : resource load failed
+location  : http://localhost:8000/does-not-exist-img-3-1787025994498.png
+

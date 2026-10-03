@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+
+# PiServer runtime
+.piserver.lock
+
+# Windows Explorer / OS cruft
+*.lnk
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Personal/machine-local — not for this repo
+.claude/settings.local.json
+ADMINS-LOG.md
+zoom-toolbar-extension/

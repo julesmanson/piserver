@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "title": "Alpine Backpack 30L",
+        "description": "Lightweight pack with hydration sleeve and trekking pole loops.",
+        "category": "gear",
+        "status": "in-stock"
+    },
+    {
+        "id": 2,
+        "title": "Trail Running Shoes",
+        "description": "Vibram-soled mid-cut shoe designed for technical terrain.",
+        "category": "footwear",
+        "status": "low-stock"
+    },
+    {
+        "id": 3,
+        "title": "Merino Base Layer",
+        "description": "Natural temperature regulation for high-output activities.",
+        "category": "apparel",
+        "status": "in-stock"
+    },
+    {
+        "id": 4,
+        "title": "Titanium Cookset",
+        "description": "1.1L pot and 350ml cup. 168g total. Packs flat.",
+        "category": "kitchen",
+        "status": "discontinued"
+    },
+    {
+        "id": 5,
+        "title": "Headlamp 500",
+        "description": "500-lumen rechargeable headlamp with red night-vision mode.",
+        "category": "lighting",
+        "status": "in-stock"
+    }
+]

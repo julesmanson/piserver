@@ -1,0 +1,100 @@
+{
+    "name": "piserver-statusbar",
+    "displayName": "PiServer Statusbar",
+    "description": "Live status indicator for up to 3 simultaneous PiServer heads in the VS Code statusbar.",
+    "version": "0.5.0-beta",
+    "publisher": "piserver",
+    "icon": "assets/images/python-logo.png",
+    "engines": {
+        "vscode": "^1.80.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onStartupFinished"
+    ],
+    "main": "./extension.js",
+    "contributes": {
+        "icons": {
+            "piserver-led": {
+                "description": "LED circle (color set at runtime via StatusBarItem.color)",
+                "default": {
+                    "fontPath": "./assets/fonts/centerdot.woff",
+                    "fontCharacter": "\\E900"
+                }
+            }
+        },
+        "commands": [
+            {
+                "command": "piserver.toggleServer",
+                "title": "PiServer: Start / Stop"
+            }
+        ],
+        "configuration": {
+            "title": "PiServer Statusbar",
+            "properties": {
+                "piserver.scriptPath": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Absolute path to piserver.py — explicit per-machine override. Leave empty to use the \"path-to-server\" key in the project's pi-config.json instead, or to auto-detect piserver.py at the workspace root if neither is set. Auto-filled by the Start button's self-heal search when all of the above miss."
+                },
+                "piserver.pythonPath": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Python interpreter used to launch piserver.py — explicit per-machine override. Leave empty to use the \"path-to-python\" key in pi-config.json, or plain \"python\" on PATH if neither is set."
+                },
+                "piserver.searchRoots": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": [],
+                    "description": "Extra folders to search for piserver.py when the Start button can't find it any other way. Leave empty to search your user folder only."
+                },
+                "piserver.port": {
+                    "type": "number",
+                    "default": 8000,
+                    "description": "Port PiServer listens on."
+                },
+                "piserver.host": {
+                    "type": "string",
+                    "default": "localhost",
+                    "description": "Host PiServer listens on."
+                },
+                "piserver.pythonRunningColor": {
+                    "type": "string",
+                    "default": "#3776AB",
+                    "description": "Color of the Python LED while running. Defaults to the official Python.org brand blue, not the conventional status green — override this if you'd prefer a standard color."
+                },
+                "piserver.serverRunningColor": {
+                    "type": "string",
+                    "default": "#FFD43B",
+                    "description": "Color of the HTTP server LED while running. Defaults to the official Python.org brand yellow, not the conventional status green — override this if you'd prefer a standard color."
+                },
+                "piserver.offlineColor": {
+                    "type": "string",
+                    "default": "#880808",
+                    "description": "Color of both LEDs when the server is offline."
+                },
+                "piserver.displayBackgroundColor": {
+                    "type": "string",
+                    "enum": [
+                        "default",
+                        "error",
+                        "warning",
+                        "remote",
+                        "offline"
+                    ],
+                    "default": "default",
+                    "description": "Background of the LCD display while running. VSCode only allows extensions to use one of its four built-in status bar background colors here (no arbitrary custom color, e.g. black, is possible through the API) — 'default' leaves it unset."
+                },
+                "piserver.displayFontColor": {
+                    "type": "string",
+                    "default": "#3776AB",
+                    "description": "Text color of the LCD display while running."
+                }
+            }
+        }
+    }
+}

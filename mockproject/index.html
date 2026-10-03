@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PiServer — mockproject</title>
+    <link rel="stylesheet" href="assets/styles/styles.css">
+</head>
+<body>
+    <div class="topbar">
+        <div>
+            <h1>PiServer — mockproject</h1>
+            <p class="subtitle">Test harness for MIME types, logging CRUD, and static data fetch.</p>
+        </div>
+        <p class="ref-links">
+            <a href="https://www.python.org/" target="_blank" rel="noopener">Python</a>
+            <a href="https://developer.mozilla.org/en-US/" target="_blank" rel="noopener">MDN</a>
+            <a href="https://javascript.info/" target="_blank" rel="noopener">javascript.info</a>
+            <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://claude.ai" target="_blank" rel="noopener">Claude</a>
+        </p>
+    </div>
+
+    <div class="controls-bar">
+        <div class="controls-left">
+            <button id="run-btn">Run All Tests</button>
+            <div class="bar-server">
+                <span class="bar-dot" id="bar-dot">●</span>
+                <span id="bar-label">checking…</span>
+            </div>
+        </div>
+        <div class="layout-btns">
+            <button class="btn-layout" id="btn-save">Save Layout</button>
+            <button class="btn-layout" id="btn-autoheight">Auto Height</button>
+            <button class="btn-layout" id="btn-reset">Reset Layout</button>
+        </div>
+    </div>
+
+    <div class="columns">
+
+        <!-- ── Column 1 — Server & environment ─────────────────────── -->
+        <div class="col">
+
+            <div class="panel">
+                <h2>SERVER STATUS</h2>
+                <p class="status pending" id="status-server">pending...</p>
+            </div>
+
+            <div class="panel">
+                <h2>MIME TYPES</h2>
+                <p class="status pending" id="status-mime">pending...</p>
+                <ul id="mime-list"></ul>
+            </div>
+
+            <div class="panel">
+                <h2>PYTHON STATUS</h2>
+                <p class="status pending" id="status-python">pending...</p>
+                <p class="info" style="margin-top:5px">Python powers PiServer. If the server responds, Python is running.</p>
+            </div>
+
+            <div class="panel">
+                <h2>START / STOP SERVER</h2>
+                <div class="info">
+                    <strong>START</strong>
+                    1. Double-click <code>piserver.py</code> — opens its own window<br>
+                    2. Terminal: <code>python piserver.py</code> — keep terminal open<br>
+                    3. PowerShell own window:<br>
+                    <code>Start-Process python -ArgumentList "piserver.py" -WorkingDirectory "..."</code><br>
+                    4. PowerShell silent background:<br>
+                    <code>Start-Process pythonw -ArgumentList "piserver.py" -WorkingDirectory "..." -WindowStyle Hidden</code>
+                    <strong>STOP</strong>
+                    Double-click again (toggle) · Close server window · Ctrl+C in terminal<br>
+                    Background only: <code>Get-Process pythonw | Stop-Process</code>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h2>CHECK / STOP PYTHON</h2>
+                <div class="info">
+                    <strong>CHECK</strong>
+                    <code>python --version</code><br>
+                    <code>Get-Process python* -ErrorAction SilentlyContinue</code><br>
+                    <code>Get-NetTCPConnection -LocalPort 8000 -State Listen -ErrorAction SilentlyContinue</code>
+                    <strong>STOP A RUNNING PROCESS</strong>
+                    <code>Get-Process python* | Stop-Process</code><br>
+                    Background only: <code>Get-Process pythonw | Stop-Process</code>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="resizer"></div>
+
+        <!-- ── Column 2 — Events sent to DOM ───────────────────────── -->
+        <div class="col">
+
+            <div class="panel">
+                <h2>UNCAUGHT EVENTS → UNCAUGHTEVENTS.LOG</h2>
+                <p class="status pending" id="status-uncaught">pending...</p>
+                <ul id="uncaught-list"></ul>
+            </div>
+
+            <div class="panel">
+                <h2>STOCHASTIC EVENTS → STOCHASTICEVENTS.TXT</h2>
+                <p class="status pending" id="status-stochastic">pending...</p>
+                <ul id="stochastic-list"></ul>
+            </div>
+
+            <div class="panel">
+                <h2>LOG READBACK</h2>
+                <p class="status pending" id="status-readback">pending...</p>
+                <pre id="readback-content"></pre>
+                <div class="v-resizer"></div>
+            </div>
+
+        </div>
+
+        <div class="resizer"></div>
+
+        <!-- ── Column 3 — Data & CRUD ───────────────────────────────── -->
+        <div class="col">
+
+            <div class="panel">
+                <h2>MOCK DATA — assets/data/json/mock.json</h2>
+                <p class="status pending" id="status-mockdata">pending...</p>
+                <div id="mockdata-cards" class="card-row"></div>
+            </div>
+
+            <div class="panel">
+                <h2>DIRECTORY TOGGLE — SERVER-MAKE-DELETE</h2>
+                <p class="status pending" id="status-delete">pending...</p>
+                <pre id="delete-content"></pre>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+    // Layout persistence
+    function saveLayout() {
+        const cols = document.querySelectorAll('.col');
+        const colWidths = Array.from(cols).map(c => c.style.width || '');
+        const pre = document.getElementById('readback-content');
+        localStorage.setItem('piserver-layout', JSON.stringify({
+            colWidths,
+            readbackH: pre.style.height || ''
+        }));
+    }
+
+    function autoReadbackHeight() {
+        const pre = document.getElementById('readback-content');
+        const h = pre.scrollHeight;
+        pre.style.height    = h + 'px';
+        pre.style.maxHeight = h + 'px';
+    }
+
+    function resetLayout() {
+        localStorage.removeItem('piserver-layout');
+        document.querySelectorAll('.col').forEach(c => {
+            c.style.flex  = '';
+            c.style.width = '';
+        });
+        const pre = document.getElementById('readback-content');
+        pre.style.height    = '';
+        pre.style.maxHeight = '';
+    }
+
+    function restoreLayout() {
+        const saved = localStorage.getItem('piserver-layout');
+        if (!saved) return;
+        try {
+            const { colWidths, readbackH } = JSON.parse(saved);
+            const cols = document.querySelectorAll('.col');
+            (colWidths || []).forEach((w, i) => {
+                if (w && cols[i]) { cols[i].style.flex = 'none'; cols[i].style.width = w; }
+            });
+            if (readbackH) {
+                const pre = document.getElementById('readback-content');
+                pre.style.height    = readbackH;
+                pre.style.maxHeight = readbackH;
+            }
+        } catch (_) {}
+    }
+
+    document.getElementById('btn-save').addEventListener('click', saveLayout);
+    document.getElementById('btn-autoheight').addEventListener('click', autoReadbackHeight);
+    document.getElementById('btn-reset').addEventListener('click', resetLayout);
+    restoreLayout();
+
+    // Column drag-to-resize
+    document.querySelectorAll('.resizer').forEach(resizer => {
+        resizer.addEventListener('mousedown', e => {
+            const left  = resizer.previousElementSibling;
+            const right = resizer.nextElementSibling;
+            const startX     = e.clientX;
+            const startLeft  = left.offsetWidth;
+            const startRight = right.offsetWidth;
+
+            resizer.classList.add('active');
+            document.body.style.cursor     = 'col-resize';
+            document.body.style.userSelect = 'none';
+
+            const onMove = e => {
+                const dx = e.clientX - startX;
+                left.style.flex  = 'none';
+                right.style.flex = 'none';
+                left.style.width  = Math.max(80, startLeft  + dx) + 'px';
+                right.style.width = Math.max(80, startRight - dx) + 'px';
+            };
+            const onUp = () => {
+                resizer.classList.remove('active');
+                document.body.style.cursor     = '';
+                document.body.style.userSelect = '';
+                document.removeEventListener('mousemove', onMove);
+                document.removeEventListener('mouseup',   onUp);
+            };
+
+            document.addEventListener('mousemove', onMove);
+            document.addEventListener('mouseup',   onUp);
+        });
+    });
+
+    // Log readback vertical resize
+    document.querySelectorAll('.v-resizer').forEach(resizer => {
+        resizer.addEventListener('mousedown', e => {
+            const pre    = resizer.previousElementSibling;
+            const startY = e.clientY;
+            const startH = pre.offsetHeight;
+            resizer.classList.add('active');
+            document.body.style.cursor     = 'row-resize';
+            document.body.style.userSelect = 'none';
+            const onMove = e => {
+                const h = Math.max(40, startH + e.clientY - startY);
+                pre.style.height    = h + 'px';
+                pre.style.maxHeight = h + 'px';
+            };
+            const onUp = () => {
+                resizer.classList.remove('active');
+                document.body.style.cursor     = '';
+                document.body.style.userSelect = '';
+                document.removeEventListener('mousemove', onMove);
+                document.removeEventListener('mouseup',   onUp);
+            };
+            document.addEventListener('mousemove', onMove);
+            document.addEventListener('mouseup',   onUp);
+        });
+    });
+    </script>
+
+    <script type="module" src="assets/app/mock-orchestrator.js"></script>
+</body>
+</html>
