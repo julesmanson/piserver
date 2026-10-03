@@ -29,14 +29,14 @@
             "webroot": "C:\\Users\\Jules\\Documents\\ACTIVE PROJECTS\\REFACTORY\\foundry148\\"
         },
         "url2": {
-            "active": false,
-            "project-name": "",
-            "webroot": ""
+            "active": true,
+            "project-name": "CLOD-SKILLS",
+            "webroot": "C:\\Users\\Jules\\Documents\\ACTIVE PROJECTS\\APPLICATIONS\\CLOD-CODE-AGENTIC-SKILLS"
         },
         "url3": {
-            "active": false,
-            "project-name": "",
-            "webroot": ""
+            "active": true,
+            "project-name": "PiServer Mock",
+            "webroot": "C:\\Users\\Jules\\Documents\\ACTIVE PROJECTS\\APPLICATIONS\\piserver\\mockproject"
         }
     },
     "path-to-server": "C:\\Users\\Jules\\Documents\\ACTIVE PROJECTS\\APPLICATIONS\\piserver\\piserver.py",

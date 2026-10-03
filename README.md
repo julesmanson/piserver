@@ -4,6 +4,23 @@
 
 A minimalist, config-driven HTTP server (Python 3.14 — Pi, hence the name), built to serve up to three independent local sites at once, with a VS Code statusbar extension that gives it a face.
 
+> **This is a minimalist *development* server** — built for local work, not hardened for production or public internet exposure. "Minimalist" describes the codebase, not the feature list, though: it packs more than its size suggests. What it has, and how it behaves out of the box, if you don't touch `pi-config.json`:
+
+| Feature | Default behavior |
+|---|---|
+| Multiple heads | Only `url1` is active. `url2`/`url3` exist in config but are off until you flip `"active": true`. |
+| Host | `127.0.0.1` — loopback only. Set `0.0.0.0` on a head to accept connections from your network. |
+| Port | `8000` for `url1`. An active `url2`/`url3` with no port set auto-increments (`+1`/`+2`) rather than colliding. |
+| Webroot | No default — required explicitly for every active head, and never inherited from `url1`. |
+| MIME whitelist | Disabled — serves every file type. Enable it to restrict serving to only the extensions you've declared. |
+| Log auth token | Empty — disabled. Set one to require `Authorization: Bearer <token>` on log writes. |
+| Rate limiting | 60 log-write requests per IP per minute. |
+| Max request size | 65536 bytes (64KB) per log write. |
+| `piserver.py` location | Self-healing — `pi-config.json`'s own `path-to-server` key, auto-repaired by the VS Code extension if the project moves and that key goes stale. |
+| Python interpreter | Plain `python` on PATH, unless `path-to-python` in `pi-config.json` points somewhere specific. |
+| Client-side logging | Off until you `import` or `<script>`-load `clientside-logging.js` into a page — then it auto-activates with no setup. |
+| Statusbar extension | Not installed by default — see [Installation](#installation) below. Once installed, shows live status for every active head, cycling between them if more than one is on. |
+
 ## Features
 
 - **Up to 3 heads, one process.** Serve up to three separate projects simultaneously — each its own port, webroot, and name — from a single `piserver.py` run. Scales down to one with zero extra config.

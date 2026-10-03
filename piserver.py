@@ -163,6 +163,19 @@ def resolve_content_type(path: Path, mime_cfg: dict) -> str:
 # ---------------------------------------------------------------------------
 # Request handler
 # ---------------------------------------------------------------------------
+class PiServerHTTPServer(ThreadingHTTPServer):
+    """A client that closes its connection mid-response (a poller timing
+    out, a browser navigating away) is normal HTTP traffic, not a server
+    bug — don't spam a full traceback for it. Anything else still prints
+    the usual way."""
+
+    def handle_error(self, request, client_address) -> None:
+        exc_type = sys.exc_info()[0]
+        if exc_type in (ConnectionAbortedError, ConnectionResetError, BrokenPipeError):
+            return
+        super().handle_error(request, client_address)
+
+
 class PiServerHandler(BaseHTTPRequestHandler):
     server_version = "PiServer/1.0"
 
@@ -472,7 +485,7 @@ def main() -> None:
 
     for head in active_heads:
         Path(BASE_DIR / head["webroot"]).mkdir(parents=True, exist_ok=True)
-        httpd = ThreadingHTTPServer((head["host"], head["port"]), PiServerHandler)
+        httpd = PiServerHTTPServer((head["host"], head["port"]), PiServerHandler)
         httpd.webroot = str((BASE_DIR / head["webroot"]).resolve())
         httpd.mime_whitelist = mime_whitelist
         httpd.routes = routes

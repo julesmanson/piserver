@@ -37,8 +37,8 @@ let displayWidth;  // fixed content width (chars) the LCD display pads out to
 // text itself hard-swaps between heads (StatusBarItem has no real opacity),
 // but swapping it right at the dimmest color step hides the cut reasonably well.
 const DIM_COLOR = '#8b949e';
-const FADE_MS = 375;
-const HOLD_MS = 1000;
+const FADE_MS = 500;
+const HOLD_MS = 3000;
 const FADE_STEP_MS = 60;
 
 // VSCode only lets extensions pick a StatusBarItem background from these
@@ -59,7 +59,7 @@ const SPACE    = ' ';
 // literal keyboard '|' -- a visible divider between the outer margin and the
 // inner padding, not another spacing character.
 const L_MARGIN = SPACE.repeat(2) + '|' + SPACE.repeat(2);  // margin | padding
-const D_PAD    = SPACE.repeat(2);  // padding each side of display text (~2n)
+const D_PAD    = SPACE.repeat(4);  // padding each side of display text (~4n — lengthened per request)
 const R_MARGIN = SPACE.repeat(2) + '|' + SPACE.repeat(2);  // padding | margin
 const BTN_GAP  = SPACE.repeat(2);  // between button icon and label (~1n)
 
@@ -162,7 +162,7 @@ function setChecking() {
 // "port — project-name" since the host is almost always identical across
 // heads and would just be repeated noise on every cycle.
 function headDisplayText(h) {
-    return h.projectName ? `${h.port} — ${h.projectName}` : `${h.host}: ${h.port}`;
+    return h.projectName ? `${h.host}:${h.port} - ${h.projectName}` : `${h.host}: ${h.port}`;
 }
 
 function renderRunningFrame() {
@@ -206,10 +206,22 @@ function runCycleFrame() {
     renderRunningFrame();
     lcdItem.color = DIM_COLOR;
     let elapsed = 0;
+    // Wall-clock-driven, not tick-counted: pollAll()'s concurrent HTTP
+    // round-trips can briefly occupy the event loop, letting several of
+    // this interval's queued ticks fire in a burst once it frees up. If
+    // elapsed just counted ticks (assuming each is exactly FADE_STEP_MS
+    // apart), a burst would phantom-jump elapsed forward and visibly
+    // skip or truncate a phase. Tracking real deltas instead means a
+    // burst of rapid-fire callbacks sums back to the actual real time
+    // that passed, not an inflated tick count.
+    let lastTick = Date.now();
     if (cycleTimer) clearInterval(cycleTimer);
     cycleTimer = setInterval(() => {
+        const now = Date.now();
+        const delta = now - lastTick;
+        lastTick = now;
         if (!isRunning || !vscode.window.state.focused) return;  // pause in place
-        elapsed += FADE_STEP_MS;
+        elapsed += delta;
         if (elapsed < FADE_MS) {
             lcdItem.color = lerpColor(DIM_COLOR, displayFontColor, elapsed / FADE_MS);
         } else if (elapsed < FADE_MS + HOLD_MS) {
@@ -484,6 +496,19 @@ async function resolveScriptPath() {
     return found;
 }
 
+// PowerShell parses a command LINE THAT STARTS WITH A QUOTED STRING as a
+// string expression, not an invocation — a second quoted token right after
+// it (the script path) is then a parse error ("Unexpected token"). The fix
+// is PowerShell's call operator, "&", which forces expression-mode. cmd.exe
+// and POSIX shells don't need it and don't choke on a bare quoted command,
+// so it's only added when the integrated terminal is actually PowerShell.
+function buildLaunchCommand(pythonPath, scriptPath) {
+    const shell = (vscode.env.shell || '').toLowerCase();
+    const isPowerShell = shell.includes('powershell') || shell.includes('pwsh');
+    const cmd = `"${pythonPath}" "${scriptPath}"`;
+    return isPowerShell ? `& ${cmd}` : cmd;
+}
+
 async function startServer() {
     const scriptPath = await resolveScriptPath();
     if (!scriptPath) return;
@@ -493,7 +518,7 @@ async function startServer() {
         name: 'PiServer',
         cwd:  path.dirname(scriptPath)
     });
-    terminal.sendText(`"${pythonPath}" "${scriptPath}"`);
+    terminal.sendText(buildLaunchCommand(pythonPath, scriptPath));
     terminal.show(false);
 }
 

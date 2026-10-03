@@ -2,7 +2,7 @@
     "name": "piserver-statusbar",
     "displayName": "PiServer Statusbar",
     "description": "Live status indicator for up to 3 simultaneous PiServer heads in the VS Code statusbar.",
-    "version": "0.5.0-beta",
+    "version": "0.5.7-beta",
     "publisher": "piserver",
     "icon": "assets/images/python-logo.png",
     "engines": {
@@ -91,8 +91,8 @@
                 },
                 "piserver.displayFontColor": {
                     "type": "string",
-                    "default": "#3776AB",
-                    "description": "Text color of the LCD display while running."
+                    "default": "#00FF00",
+                    "description": "Text color of the LCD display while running. Lime by default."
                 }
             }
         }
