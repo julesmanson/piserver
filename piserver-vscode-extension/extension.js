@@ -24,14 +24,15 @@ let primary = null;   // heads[0] — the one head Start/Stop and the lock targe
 let cycleIndex = 0;
 let marginLeft, ledPython, ledServer, lcdItem, actionBtn, marginRight;
 let pythonRunningColor, serverRunningColor, offlineColor;
-let displayBackgroundColor, displayFontColor;
+let displayBackgroundColor, displayFontColor, blankColor;
 let displayWidth;  // fixed content width (chars) the LCD display pads out to
 
 // Dim end of the cycling pseudo-fade — text hard-swaps at the dimmest step
 // since StatusBarItem has no real opacity, hiding the cut reasonably well.
 const DIM_COLOR = '#8b949e';
-const FADE_MS = 500;
+const FADE_MS = 400;
 const HOLD_MS = 3000;
+const BLANK_MS = 200;
 const FADE_STEP_MS = 60;
 
 // VSCode only allows these 4 built-in ThemeColors for a StatusBarItem
@@ -57,9 +58,16 @@ const CHECKING_MSG = 'checking…';
 const OFFLINE_MSG  = 'server offline';
 const SHUTDOWN_MSG = 'shutting down…';
 
+// NBSP renders narrower than real glyphs in the statusbar font, so padding
+// by the raw character-count gap under-fills shorter messages — a few-char
+// name difference between heads visibly "jerks" on cycling. Overpadding by
+// this factor approximates equal pixel width instead of equal char count.
+// Empirical starting point — nudge if still visibly short/long.
+const NBSP_WIDTH_COMPENSATION = 1.4;
+
 function padToDisplayWidth(msg) {
     const gap = displayWidth - msg.length;
-    return gap > 0 ? msg + SPACE.repeat(gap) : msg;
+    return gap > 0 ? msg + SPACE.repeat(Math.round(gap * NBSP_WIDTH_COMPENSATION)) : msg;
 }
 
 function activate(context) {
@@ -72,6 +80,9 @@ function activate(context) {
     displayBackgroundColor = DISPLAY_BG_THEME_COLORS[bgChoice]
         ? new vscode.ThemeColor(DISPLAY_BG_THEME_COLORS[bgChoice])
         : undefined;
+    // Color to blend text into whatever lcdItem's actual background is —
+    // same ThemeColor if one's configured, else the statusbar's own default.
+    blankColor = displayBackgroundColor || new vscode.ThemeColor('statusBar.background');
 
     heads = loadHeadsFromPiConfig();
     if (!heads || heads.length === 0) {
@@ -213,6 +224,14 @@ function runCycleFrame() {
             lcdItem.color = displayFontColor;
         } else if (elapsed < 2 * FADE_MS + HOLD_MS) {
             lcdItem.color = lerpColor(displayFontColor, DIM_COLOR, (elapsed - FADE_MS - HOLD_MS) / FADE_MS);
+        } else if (elapsed < 2 * FADE_MS + HOLD_MS + BLANK_MS) {
+            // Text is left exactly as fade-out's last frame — only the color
+            // changes, to match lcdItem's own background, so it visually
+            // disappears without the string (and thus its width) ever
+            // changing shape. NBSP padding alone (tried first) rendered
+            // ~30% narrower than real glyphs in the statusbar font, so an
+            // all-NBSP "blank" string visibly shrank the item.
+            lcdItem.color = blankColor;
         } else {
             clearInterval(cycleTimer);
             cycleIndex = (cycleIndex + 1) % heads.length;

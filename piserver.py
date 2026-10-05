@@ -529,7 +529,8 @@ def main() -> None:
     primary = bound_heads[0]
     write_lock(os.getpid(), primary["host"], primary["port"])
     alert("PiServer is now running:\n" + "\n".join(
-        f'{h["project_name"] or h["key"]}: http://{h["host"]}:{h["port"]}' for h in bound_heads
+        f'http://{h["host"]}:{h["port"]}' + (f' - {h["project_name"]}' if h["project_name"] else '')
+        for h in bound_heads
     ))
 
     threads = [
