@@ -1,6 +1,6 @@
 # PiServer 0.5.8-beta
 
-> The world's only 3-headed headless monster in which a head emergeces from an included vsix for VS Code extensions.
+> The world's only 3-headed headless mini-monster in which a head emergeces from an included vsix for VS Code extensions.
 
 A minimalist, config-driven HTTP server (Python 3.14.0 — Pi, hence the name), built to serve up to three independent local sites (3 heads) at once, with a VS Code statusbar extension that gives it a face. Functionality is built on Python's proven standard-library `http.server`.
 
@@ -10,7 +10,7 @@ A minimalist, config-driven HTTP server (Python 3.14.0 — Pi, hence the name), 
 
 - **Up to 3 heads, one process.** Serve up to three separate projects simultaneously — each its own host, port, and webroot (a display name is optional) — from a single `piserver.py` run. Scales down to one with zero extra config.
 - **Everything config-driven.** Routes, ports, webroots, security, and MIME handling all live in `pi-config.json`. Nothing is hardcoded in `piserver.py`.
-- **Self-healing paths.** The project can be moved without breaking anything — `pi-config.json` carries its own pointer to `piserver.py` and the Python interpreter to launch it with, and the VS Code extension falls back to a bounded filesystem search (and writes the answer back) if that pointer ever goes stale.
+- **Self-healing paths.** `piserver.py` finds its own `pi-config.json` by sitting next to it — the project can be moved freely as long as the two stay together. The VS Code extension lives outside the project entirely, though, so it needs its own way to find `piserver.py` and the Python interpreter to launch it with: `pi-config.json` stores both as plain pointers for the extension to read, and if a move ever leaves them stale, the extension falls back to a bounded filesystem search and writes the corrected path back.
 - **Built-in client-side logging.** Drop `clientside-logging.js` into any page — it auto-activates, catches JS errors (`TypeError`, `ReferenceError`, unhandled rejections, and more), and POSTs them back to the server to log.
 - **Security by default.** Bearer-token auth on log writes, per-IP rate limiting, request size caps, log-injection stripping, and path-traversal checks on every file and log operation.
 - **MIME whitelist, config-driven.** Serve only explicitly declared file extensions with their declared `Content-Type`, or open it up to everything — your call, one flag.
