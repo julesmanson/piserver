@@ -1,16 +1,14 @@
 /*
- * temporal-extension.js — timestamp formatting utility (part of PiServer Beta 0.1.0)
+ * temporal-extension.js — timestamp formatting utility (part of PiServer 0.5.8-beta)
  * Jules Manson, 2026. MIT License.
- * Can be used anywhere with any other javascript. No dependencies.
- * Standalone ES module. Import getTimestamp() wherever a formatted timestamp is needed.
+ * Standalone ES module, no dependencies. Import getTimestamp() anywhere.
  */
 
 // ---------------------------------------------------------------------------
-// FORMAT OPTIONS  (set config_timestamp.style.format to one of these keys)
-//
-//   piserver → August 15, 2026 19:08:50 Los Angeles (PT)    miltime: true
-//            → August 15, 2026 7:08:50 PM Los Angeles (PT)  miltime: anything else
-//   usLong   → August 15, 2026 19:08:50 PT            (uses style.label for timezone display)
+// FORMAT OPTIONS — config_timestamp.style.format
+//   piserver → August 15, 2026 19:08:50 Los Angeles (PT)   [miltime: true]
+//            → August 15, 2026 7:08:50 PM Los Angeles (PT) [miltime: false]
+//   usLong   → August 15, 2026 19:08:50 PT        (label from style.label)
 //   usShort  → Aug 15, 2026 19:08:50 PT
 //   usNum    → 08/15/2026 19:08:50
 //   european → 15 August 2026 19:08:50
@@ -18,22 +16,15 @@
 //   iso      → 2026-08-15T19:08:50.945Z
 //   compact  → 20260815T190850
 //
-// ZONE OPTIONS  (set config_timestamp.zone entries — first valid one wins silently)
+// ZONE OPTIONS — config_timestamp.zone entries, tried in order, first valid wins
+//   city   → IANA name, e.g. "America/Los_Angeles" (auto DST)
+//   offset → fixed UTC offset, e.g. "Etc/GMT+7" (sign inverted: +7 = UTC-7)
+//   utc    → "UTC" (no DST)
 //
-//   city   → IANA city name e.g. "America/Los_Angeles"   handles DST automatically
-//   offset → fixed UTC offset  e.g. "Etc/GMT+7"          sign inverted: +7 = UTC-7
-//   utc    → "UTC"                                        universal, no DST
-//
-// TIMEZONE LABEL OPTIONS  (set config_timestamp.style.label to one of these keys)
-//   Controls how the timezone appears in the formatted output.
-//
-//   city          → Los Angeles
-//   shortGeneric  → PT
-//   short         → PDT / PST  (switches with daylight saving)
-//   longGeneric   → Pacific Time
-//   long          → Pacific Daylight Time / Pacific Standard Time
-//   shortOffset   → GMT-7
-//   longOffset    → GMT-07:00
+// LABEL OPTIONS — config_timestamp.style.label (timezone display style)
+//   city → Los Angeles          shortGeneric → PT         short → PDT/PST (DST)
+//   longGeneric → Pacific Time  long → Pacific Daylight/Standard Time
+//   shortOffset → GMT-7         longOffset → GMT-07:00
 // ---------------------------------------------------------------------------
 
 // ---------------------------------------------------------------------------
@@ -41,24 +32,23 @@
 // ---------------------------------------------------------------------------
 export const config_timestamp = {
 
-    zone: { // entries tried in order — first valid one wins silently, warning only if all fail
-        city:   "America/Los_Angeles",  // IANA city name — handles DST automatically
-        offset: "Etc/GMT+7",           // fixed UTC offset, sign inverted: Etc/GMT+7 = UTC-7
-        utc:    "UTC"                  // last resort universal fallback
+    zone: { // tried in order, first valid wins silently — see ZONE OPTIONS above
+        city:   "America/Los_Angeles",
+        offset: "Etc/GMT+7",
+        utc:    "UTC"
     },
 
     style: {
-        locale: "en-US",  // BCP 47 tag. If invalid, falls back to navigator.language then "en".
-        miltime: true,    // true = 24-hour. Anything else (false, string, number, etc.) = 12-hour.
-        format: "piserver", // output format
-        label:  "city"    // how the timezone appears in output (see TIMEZONE LABEL OPTIONS)
+        locale: "en-US",    // BCP 47 tag; invalid falls back to navigator.language, then "en"
+        miltime: true,      // true = 24-hour, else 12-hour
+        format: "piserver", // see FORMAT OPTIONS above
+        label:  "city"      // see LABEL OPTIONS above
     }
 };
 
 // ---------------------------------------------------------------------------
-// getTimestamp() — returns a formatted timestamp string.
-// Each config item validates independently. Only failed items fall back and
-// prepend a warning line. Everything else continues working normally.
+// getTimestamp() — each config item validates independently; a failed one
+// falls back and prepends a warning line, everything else still works.
 // ---------------------------------------------------------------------------
 export function getTimestamp() {
     const errors = [];

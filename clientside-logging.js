@@ -1,41 +1,35 @@
 /*
- * clientside-logging.js (part of PiServer Beta 0.1.0 mockproject)
- * Can be used with any HTTP server.
- * Plug-n-Play: drop into any project folder and it's ready to go.
- * Minimal fuss - for other servers only need to match route to server's endpoint.
- * Maximum flexibility - many options as defaults.
- * Autostarts on import, no dependencies.
+ * clientside-logging.js (part of PiServer 0.5.8-beta)
+ * Drop into any project; works with any HTTP server (not just PiServer) —
+ * just point route at the server's log endpoint. Autostarts on import, no deps.
  */
 /*
- * EVENT REFERENCE RECOMMENDATIONS FOR MOST COMMON LOGGING NEEDS
- * ✅ = include   ⚠️ = optional   ❌ = exclude
+ * EVENT REFERENCE — what to log, by category. ✅ include ⚠️ optional ❌ skip
  *
- * PREVENTABLE — Uncaught Errors (robust coding eliminates these)
- * ✅ TypeError              — null/undefined access, calling a non-function, type mismatches. Most common JS error.
- * ✅ ReferenceError         — undefined variable or accessed before initialization.
- * ✅ unhandledrejection     — Promise rejected with no .catch() or try/await to handle it.
- * ✅ RangeError             — invalid array length, out-of-range argument, infinite recursion.
- * ✅ SyntaxError            — malformed code at runtime, almost always through eval().
- * ✅ AggregateError         — Promise.any() with all promises rejecting and no fallback.
- * ⚠️ URIError               — malformed string in encodeURIComponent/decodeURIComponent. Rare.
- * ❌ EvalError              — eval() misuse. Extremely rare in modern JS; eval() itself is discouraged.
+ * PREVENTABLE (bugs; robust code eliminates these)
+ * ✅ TypeError          — null/undefined access, non-function call, type mismatch (most common)
+ * ✅ ReferenceError     — undefined variable, or used before init
+ * ✅ unhandledrejection — Promise rejected, no .catch()/await
+ * ✅ RangeError         — invalid length/argument, infinite recursion
+ * ✅ SyntaxError        — malformed runtime code, almost always via eval()
+ * ✅ AggregateError     — Promise.any() all-rejected, no fallback
+ * ⚠️ URIError           — malformed encodeURIComponent/decodeURIComponent string (rare)
+ * ❌ EvalError          — eval() misuse; rare, eval() itself discouraged
  *
- * STOCHASTIC — Outside Your Control
- * ✅ network                — resource load failure (img, script, link) from dropped connection or CDN outage.
- * ✅ securitypolicyviolation — CSP blocked a resource, often from browser extensions or third-party scripts.
- * ⚠️ messageerror           — Worker/BroadcastChannel deserialization failure. Only relevant if using Workers.
- * ❌ rejectionhandled       — late handler added to an already-flagged rejected Promise. Edge case, noisy.
- * ❌ InternalError          — Firefox-only, non-standard. JS engine failure, usually from deep recursion.
+ * STOCHASTIC (outside your control)
+ * ✅ network                 — img/script/link load failure (dropped connection, CDN outage)
+ * ✅ securitypolicyviolation — CSP blocked a resource (extensions, third-party scripts)
+ * ⚠️ messageerror     — Worker/BroadcastChannel deserialization failure (Workers only) — not wired in
+ * ❌ rejectionhandled — late handler on an already-flagged rejection; noisy edge case — not wired in
+ * ❌ InternalError    — Firefox-only, non-standard engine failure — not wired in
  */
-// Not coded for messageerror, rejectionhandled, or InternalError events.
 
 // ---------------------------------------------------------------------------
-// Config — one entry in array per log file.
-// keyword:       required for multiple files, must be unique, routes logEvent() calls.
-// relative_path: omit, use "", or leave empty → defaults to server webroot.
-// heading:       first line written to a new file. Omit or leave empty to skip.
-// events:        omit, use [], or leave empty → catches all event types.
-// events not coded in: messageerror, rejectionhandled, InternalError.
+// Config — one entry per log file.
+// keyword:       required if using multiple files; unique; routes logEvent() calls.
+// relative_path: omit/"" → server webroot.
+// heading:       first line written to a new file; omit to skip.
+// events:        omit/[] → catches everything.
 // ---------------------------------------------------------------------------
 export const config_events = [
     {
@@ -60,27 +54,24 @@ export const config_events = [
 ];
 
 // ---------------------------------------------------------------------------
-// Config — timestamp.
-// Uses the native Temporal API (system timezone — no zone config needed).
-// Any key with an unrecognized value or wrong primitive type falls back to
-// Temporal log format (2026-08-15 19:08:50). If Temporal is unavailable,
-// falls back to a raw ISO string. Omitting all keys still produces a minimal
-// log-format timestamp — nothing here is required for the logger to function.
+// Config — timestamp. Uses the native Temporal API (system timezone, no
+// config needed); bad/missing keys fall back to log format
+// (2026-08-15 19:08:50), then to a raw ISO string if Temporal's unavailable.
+// All keys optional.
 //
-// label:     how the timezone appears in output.
+// label:     timezone display style.
 //   "city"        → Los Angeles
-//   "shortGeneric"→ PT                   (generic, no DST distinction)
-//   "short"       → PDT / PST            (switches with daylight saving)
+//   "shortGeneric"→ PT           (no DST distinction)
+//   "short"       → PDT / PST    (DST-aware)
 //   "longGeneric" → Pacific Time
 //   "long"        → Pacific Daylight Time / Pacific Standard Time
 //   "shortOffset" → GMT-7
 //   "longOffset"  → GMT-07:00
 //
-// miltime:   true = 24-hour, anything else = 12-hour.
-// locale:    BCP 47 tag e.g. "en-US". Must be a string or falls back to log format.
-// extension: polyfill fallback if the native Temporal API is unavailable, or drop in
-//            any module exporting getTimestamp() for fully custom timestamp formatting.
-//            Set to "" to use the built-in Temporal formats above.
+// miltime:   true = 24-hour, else 12-hour.
+// locale:    BCP 47 tag (e.g. "en-US"); non-string falls back to log format.
+// extension: custom getTimestamp() module, or a Temporal polyfill if it's
+//            unavailable. "" = use the built-in formats above.
 // ---------------------------------------------------------------------------
 export const config_timestamp = {
     locale:    "en-US",
@@ -90,12 +81,10 @@ export const config_timestamp = {
 };
 
 // ---------------------------------------------------------------------------
-// Config — must match the log route or endpoint defined in your server's config.
-//
-// route: "/log" works when this project is served by PiServer (same origin).
-//        Use a full URL if the project is served by a different server or port,
-//        or opened directly as a local file:  "http://localhost:8000/log"
-//        The project files can live anywhere — only the route needs to point to PiServer's endpoint.
+// Config — route must match your server's log endpoint.
+// route: "/log" works same-origin (served by PiServer). Use a full URL
+//        ("http://localhost:8000/log") if served elsewhere, or opened as a
+//        local file — project files can live anywhere, only route matters.
 // ---------------------------------------------------------------------------
 export const config_server = {
     route: "/log",
@@ -103,8 +92,8 @@ export const config_server = {
 };
 
 // ---------------------------------------------------------------------------
-// Load extension — delegates timestamp formatting if present.
-// Falls back to built-in Temporal formats, then raw ISO string.
+// Load extension — delegates timestamp formatting if present (else built-in
+// Temporal formats, then raw ISO string).
 // ---------------------------------------------------------------------------
 let _getTimestamp = null;
 if (config_timestamp.extension) {
@@ -210,7 +199,7 @@ function _attachListeners() {
         }
     });
 
-    // Resource load failures (img, script, link) — no evt.error present, capture phase required
+    // Resource load failures — no evt.error, needs capture phase
     window.addEventListener("error", (evt) => {
         if (!evt.error && evt.target && evt.target !== window) {
             const src = evt.target.src || evt.target.href || "unknown";

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-PiServer 0.1.0 lovingly made with Python Pi (Pi for version 3.14.0)
+PiServer 0.5.8-beta lovingly made with Python Pi (Pi for version 3.14.0)
 =============================
 Requires Python 3.10 or later (for X | Y union type hint syntax).
 A minimalist singleton HTTP server with config-driven webroot and optional settings.
@@ -54,17 +54,17 @@ BASE_DIR = Path(__file__).resolve().parent
 CONFIG_PATH = BASE_DIR / "pi-config.json"
 LOCK_PATH = BASE_DIR / ".piserver.lock"
 
-# Per-file write locks — keyed by resolved path string so concurrent writes
-# to the same log file are always serialized without blocking other files.
+# Per-file write locks, keyed by path — serializes writes to one file
+# without blocking others.
 _log_locks: dict = {}
 _log_locks_guard = threading.Lock()
 
-# Rate limiting — fixed window per IP address.
+# Rate limiting — fixed window per IP.
 _rate_limit: dict = {}
 _rate_lock = threading.Lock()
 
-# Every active head's ThreadingHTTPServer — a /shutdown hit on any one of
-# them tears down all of them, since they're one logical PiServer process.
+# Every active head's ThreadingHTTPServer — any one's /shutdown tears down
+# all of them (one logical process).
 ALL_SERVERS: list = []
 
 
@@ -164,10 +164,9 @@ def resolve_content_type(path: Path, mime_cfg: dict) -> str:
 # Request handler
 # ---------------------------------------------------------------------------
 class PiServerHTTPServer(ThreadingHTTPServer):
-    """A client that closes its connection mid-response (a poller timing
-    out, a browser navigating away) is normal HTTP traffic, not a server
-    bug — don't spam a full traceback for it. Anything else still prints
-    the usual way."""
+    """A client closing mid-response (poller timeout, browser navigating
+    away) is normal traffic, not a bug — skip the traceback for it;
+    anything else still prints normally."""
 
     def handle_error(self, request, client_address) -> None:
         exc_type = sys.exc_info()[0]
@@ -177,7 +176,7 @@ class PiServerHTTPServer(ThreadingHTTPServer):
 
 
 class PiServerHandler(BaseHTTPRequestHandler):
-    server_version = "PiServer/1.0"
+    server_version = "PiServer/0.5.8-beta"
 
     # -- IO helpers ----------------------------------------------------------
     def _send_json(self, status: int, payload: dict) -> None:
@@ -248,7 +247,8 @@ class PiServerHandler(BaseHTTPRequestHandler):
             self._send_json(400, {"error": "expected JSON object"})
             return
 
-        # Directory toggle: create if absent, delete (with contents) if present
+        # Directory toggle: create if absent; report "exists" if present
+        # (actual deletion is DELETE's dirmode, not this POST path).
         if data.get("dirmode"):
             relative_path = str(data.get("relative_path", "")).strip()
             if not relative_path:
@@ -388,7 +388,7 @@ class PiServerHandler(BaseHTTPRequestHandler):
         if urlparse(self.path).path == routes.get("log"):
             length = int(self.headers.get("Content-Length", 0) or 0)
             if length > 0:
-                # Peek at body to check for dirmode without consuming for log delete
+                # Peek at the body for dirmode before falling through to delete-by-filename
                 data = self._read_json()
                 if isinstance(data, dict) and data.get("dirmode"):
                     relative_path = str(data.get("relative_path", "")).strip()
@@ -420,26 +420,23 @@ class PiServerHandler(BaseHTTPRequestHandler):
 
 
 # ---------------------------------------------------------------------------
-# Head resolution — up to 3 heads (url1/url2/url3). url2 and url3 inherit any
-# key they omit from url1 except project-name and webroot, which are never
-# inherited. port is never copied verbatim either (two heads can't share a
-# host:port) — an omitted port defaults to url1.port + its index instead.
+# Head resolution — up to 3 heads (pi-config.json's body.head1-3). host,
+# port, and webroot are each required per active head (no inheritance or
+# defaulting — see main() for validation). project-name is optional,
+# cosmetic only.
 # ---------------------------------------------------------------------------
 def resolve_heads(config: dict) -> list[dict]:
-    urls_cfg = config.get("urls", {})
-    url1_cfg = urls_cfg.get("url1", {})
-    base_host = url1_cfg.get("host", "127.0.0.1")
-    base_port = int(url1_cfg.get("port", 8000))
+    body_cfg = config.get("body", {})
 
     heads = []
-    for i, key in enumerate(("url1", "url2", "url3")):
-        cfg = urls_cfg.get(key, {})
-        default_active = key == "url1"
+    for key in ("head1", "head2", "head3"):
+        cfg = body_cfg.get(key, {})
+        default_active = key == "head1"
         heads.append({
             "key": key,
             "active": bool(cfg.get("active", default_active)),
-            "host": cfg.get("host", base_host),
-            "port": int(cfg.get("port", base_port + i)),
+            "host": cfg.get("host"),
+            "port": cfg.get("port"),
             "project_name": cfg.get("project-name", ""),
             "webroot": cfg.get("webroot", ""),
         })
@@ -469,23 +466,52 @@ def main() -> None:
     rate_limit = int(security_cfg.get("rate_limit_per_minute", 60))
     max_content_bytes = int(security_cfg.get("max_content_bytes", 65536))
 
+    # Layer 1 — config-time checks: required fields, then duplicate
+    # host:port pairs. Skips only the offending head, named specifically.
     active_heads = []
+    seen_bindings = {}
     for head in resolve_heads(config):
         if not head["active"]:
             continue
-        if not head["project_name"] or not head["webroot"]:
-            alert(f'PiServer: {head["key"]} is active but missing "project-name" or '
-                  f'"webroot" in pi-config.json — skipping that head.')
+
+        missing = [k for k in ("host", "port", "webroot") if not head[k]]
+        if missing:
+            alert(f'PiServer: {head["key"]} is active but missing required '
+                  f'{" and ".join(missing)} in pi-config.json — skipping that head.')
             continue
+
+        try:
+            head["port"] = int(head["port"])
+        except (TypeError, ValueError):
+            alert(f'PiServer: {head["key"]}\'s port ("{head["port"]}") in pi-config.json '
+                  f'is not a valid number — skipping that head.')
+            continue
+
+        binding = (head["host"], head["port"])
+        if binding in seen_bindings:
+            alert(f'PiServer: {head["key"]} and {seen_bindings[binding]} both specify '
+                  f'{head["host"]}:{head["port"]} in pi-config.json — skipping {head["key"]}.')
+            continue
+        seen_bindings[binding] = head["key"]
+
         active_heads.append(head)
 
     if not active_heads:
-        alert('PiServer: no valid active heads in pi-config.json\'s "urls" section. Aborting.')
+        alert('PiServer: no valid active heads in pi-config.json\'s "body" section. Aborting.')
         sys.exit(1)
 
+    # Layer 2 — actual bind attempt, catches a port already held by some
+    # unrelated process (config can't predict that). Skips just that head.
+    bound_heads = []
     for head in active_heads:
         Path(BASE_DIR / head["webroot"]).mkdir(parents=True, exist_ok=True)
-        httpd = PiServerHTTPServer((head["host"], head["port"]), PiServerHandler)
+        try:
+            httpd = PiServerHTTPServer((head["host"], head["port"]), PiServerHandler)
+        except OSError as exc:
+            alert(f'PiServer: could not bind {head["key"]} to {head["host"]}:{head["port"]} '
+                  f'({exc.strerror or exc}) — probably already in use by another process. '
+                  f'Skipping that head.')
+            continue
         httpd.webroot = str((BASE_DIR / head["webroot"]).resolve())
         httpd.mime_whitelist = mime_whitelist
         httpd.routes = routes
@@ -494,11 +520,16 @@ def main() -> None:
         httpd.max_content_bytes = max_content_bytes
         httpd.project_name = head["project_name"]
         ALL_SERVERS.append(httpd)
+        bound_heads.append(head)
 
-    primary = active_heads[0]
+    if not bound_heads:
+        alert('PiServer: every active head failed to bind. Aborting.')
+        sys.exit(1)
+
+    primary = bound_heads[0]
     write_lock(os.getpid(), primary["host"], primary["port"])
     alert("PiServer is now running:\n" + "\n".join(
-        f'{h["project_name"]}: http://{h["host"]}:{h["port"]}' for h in active_heads
+        f'{h["project_name"] or h["key"]}: http://{h["host"]}:{h["port"]}' for h in bound_heads
     ))
 
     threads = [

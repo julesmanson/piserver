@@ -6,20 +6,14 @@ const os     = require('os');
 
 // ---------------------------------------------------------------------------
 // Statusbar layout — 6 items, right-aligned, priority 148000-148005:
-//
 //   2n|2n  ◯  ◯  «2n» display «2n»  icon «1n» label  2n|2n
 //
-// marginLeft/marginRight are dedicated, static, non-interactive items that
-// exist only to hold the outer margins — content items (LEDs, display,
-// button) never carry margin text themselves, so their .text can be set
-// per-state without re-stitching whitespace into every state string. Each
-// margin item is itself split: 2n margin, a literal "|", 2n padding (mirrored
-// on the right) — not a single flat 4n block anymore.
+// marginLeft/marginRight hold the outer margins so content items (LEDs,
+// display, button) never carry margin text themselves — their .text can
+// change per-state without re-stitching whitespace each time.
 //
-// Two separate LED items (ledPython, ledServer) so each gets its own .color.
-// Both always show the same $(piserver-led) glyph (a single monochrome dot
-// from centerdot.woff) — color, not glyph choice, is what distinguishes
-// blue/green/red/grey at runtime.
+// ledPython/ledServer are separate items so each gets its own .color; both
+// show the same $(piserver-led) glyph, distinguished only by color.
 // ---------------------------------------------------------------------------
 
 let pollTimer = null;
@@ -33,17 +27,15 @@ let pythonRunningColor, serverRunningColor, offlineColor;
 let displayBackgroundColor, displayFontColor;
 let displayWidth;  // fixed content width (chars) the LCD display pads out to
 
-// Color used for the dim end of the cycling display's pseudo-fade — the
-// text itself hard-swaps between heads (StatusBarItem has no real opacity),
-// but swapping it right at the dimmest color step hides the cut reasonably well.
+// Dim end of the cycling pseudo-fade — text hard-swaps at the dimmest step
+// since StatusBarItem has no real opacity, hiding the cut reasonably well.
 const DIM_COLOR = '#8b949e';
 const FADE_MS = 500;
 const HOLD_MS = 3000;
 const FADE_STEP_MS = 60;
 
-// VSCode only lets extensions pick a StatusBarItem background from these
-// four built-in ThemeColors — no arbitrary custom background (e.g. black)
-// is possible through the public API.
+// VSCode only allows these 4 built-in ThemeColors for a StatusBarItem
+// background — no arbitrary custom color (e.g. black) via the public API.
 const DISPLAY_BG_THEME_COLORS = {
     error:   'statusBarItem.errorBackground',
     warning: 'statusBarItem.warningBackground',
@@ -51,17 +43,13 @@ const DISPLAY_BG_THEME_COLORS = {
     offline: 'statusBarItem.offlineBackground'
 };
 
-// Spacing constants — built from NBSP (U+00A0), not regular spaces: regular
-// spaces collapse when rendered; NBSP does not, so each one renders as a
-// real, distinct ~n-width space.
+// NBSP (U+00A0), not regular space — regular spaces collapse when rendered.
 const SPACE    = ' ';
-// Left: 2n margin | 2n padding. Right: 2n padding | 2n margin. The pipe is a
-// literal keyboard '|' -- a visible divider between the outer margin and the
-// inner padding, not another spacing character.
+// Pipe is a literal visible divider between outer margin and inner padding.
 const L_MARGIN = SPACE.repeat(2) + '|' + SPACE.repeat(2);  // margin | padding
-const D_PAD    = SPACE.repeat(4);  // padding each side of display text (~4n — lengthened per request)
+const D_PAD    = SPACE.repeat(4);  // padding each side of display text
 const R_MARGIN = SPACE.repeat(2) + '|' + SPACE.repeat(2);  // padding | margin
-const BTN_GAP  = SPACE.repeat(2);  // between button icon and label (~1n)
+const BTN_GAP  = SPACE.repeat(2);  // between button icon and label
 
 // LCD display messages — padded (with trailing SPACE) to a shared fixed
 // width so the item doesn't visibly resize as it cycles between states.
@@ -87,7 +75,7 @@ function activate(context) {
 
     heads = loadHeadsFromPiConfig();
     if (!heads || heads.length === 0) {
-        // No pi-config.json "urls" section found anywhere in the workspace —
+        // No pi-config.json "body" section found anywhere in the workspace —
         // fall back to the pre-multi-head VS Code settings, single head,
         // original "host: port" text, no cycling.
         heads = [{ key: 'legacy', host: cfg.get('host', 'localhost'), port: cfg.get('port', 8000), projectName: '' }];
@@ -119,6 +107,8 @@ function activate(context) {
     ledPython.tooltip = 'Python — PiServer process';
     ledServer.tooltip = 'HTTP server — PiServer response';
     actionBtn.command = 'piserver.toggleServer';
+    lcdItem.tooltip = 'Click to copy this head\'s URL';
+    lcdItem.command = 'piserver.copyCurrentHeadUrl';
 
     // Static outer margins — set once, never touched by the state renderers.
     marginLeft.text  = L_MARGIN;
@@ -133,7 +123,8 @@ function activate(context) {
 
     context.subscriptions.push(
         marginLeft, ledPython, ledServer, lcdItem, actionBtn, marginRight,
-        vscode.commands.registerCommand('piserver.toggleServer', () => toggle(primary.host, primary.port))
+        vscode.commands.registerCommand('piserver.toggleServer', () => toggle(primary.host, primary.port)),
+        vscode.commands.registerCommand('piserver.copyCurrentHeadUrl', copyCurrentHeadUrl)
     );
 
     setChecking();
@@ -157,10 +148,9 @@ function setChecking() {
     actionBtn.tooltip = '';
 }
 
-// Text for one head's display frame. The legacy single-head fallback (no
-// project-name) keeps the original "host: port" wording; named heads show
-// "port — project-name" since the host is almost always identical across
-// heads and would just be repeated noise on every cycle.
+// Text for one head's display frame. project-name is optional on any head
+// (legacy single-head fallback included) — no name falls back to plain
+// "host: port"; a named head shows "host:port - name" instead.
 function headDisplayText(h) {
     return h.projectName ? `${h.host}:${h.port} - ${h.projectName}` : `${h.host}: ${h.port}`;
 }
@@ -190,10 +180,9 @@ function setOffline() {
 }
 
 // ---------------------------------------------------------------------------
-// Multi-head cycling display — a crude pseudo-fade via color steps, since
-// StatusBarItem has no real opacity/transition. Text hard-swaps at the
-// dimmest point of the cycle, which is the least jarring moment to do it.
-// Only runs with >1 active head; a single head just renders statically.
+// Multi-head cycling display — pseudo-fade via color steps (no real opacity
+// API). Text hard-swaps at the dimmest point, the least jarring moment.
+// Only runs with >1 active head; one head renders statically.
 // ---------------------------------------------------------------------------
 function lerpColor(hexA, hexB, t) {
     const a = parseInt(hexA.slice(1), 16), b = parseInt(hexB.slice(1), 16);
@@ -206,14 +195,10 @@ function runCycleFrame() {
     renderRunningFrame();
     lcdItem.color = DIM_COLOR;
     let elapsed = 0;
-    // Wall-clock-driven, not tick-counted: pollAll()'s concurrent HTTP
-    // round-trips can briefly occupy the event loop, letting several of
-    // this interval's queued ticks fire in a burst once it frees up. If
-    // elapsed just counted ticks (assuming each is exactly FADE_STEP_MS
-    // apart), a burst would phantom-jump elapsed forward and visibly
-    // skip or truncate a phase. Tracking real deltas instead means a
-    // burst of rapid-fire callbacks sums back to the actual real time
-    // that passed, not an inflated tick count.
+    // Wall-clock-driven, not tick-counted: pollAll()'s HTTP round-trips can
+    // delay this interval, letting several ticks fire in a burst. Tracking
+    // real elapsed time (not an assumed FADE_STEP_MS per tick) keeps a
+    // burst from phantom-jumping the phase forward.
     let lastTick = Date.now();
     if (cycleTimer) clearInterval(cycleTimer);
     cycleTimer = setInterval(() => {
@@ -269,6 +254,20 @@ function pollAll() {
     });
 }
 
+// Copies the currently-displayed head's URL (http:// included — never shown
+// in the LCD text itself) to the clipboard, so it can be pasted straight
+// into a browser's address bar.
+function copyCurrentHeadUrl() {
+    if (!isRunning) {
+        vscode.window.setStatusBarMessage('PiServer: offline — nothing to copy.', 3000);
+        return;
+    }
+    const current = heads[cycleIndex] || heads[0];
+    const url = `http://${current.host}:${current.port}`;
+    vscode.env.clipboard.writeText(url);
+    vscode.window.setStatusBarMessage(`PiServer: copied ${url}`, 3000);
+}
+
 // ---------------------------------------------------------------------------
 // Toggle stop / start
 // ---------------------------------------------------------------------------
@@ -322,40 +321,57 @@ function readPiConfig(dir) {
     }
 }
 
-// Resolves pi-config.json's "urls" block into 1-3 head objects, mirroring
-// piserver.py's resolve_heads(): url2/url3 inherit host from url1 if
-// omitted, port defaults to url1.port + index (never copied verbatim —
-// two heads can't share a host:port), and active defaults to true for
-// url1 / false for url2 and url3. project-name is never inherited; a head
-// without one is dropped since there's nothing to display or dial.
-function resolveHeadsFromUrlsConfig(urlsCfg) {
-    const url1 = urlsCfg.url1 || {};
-    const baseHost = url1.host || 'localhost';
-    const basePort = url1.port !== undefined ? url1.port : 8000;
+// Resolves pi-config.json's "body" block, mirroring piserver.py's
+// resolve_heads() — host/port/webroot required per active head, no
+// inheritance/defaulting; project-name optional/cosmetic. A head missing
+// a field, or duplicating another's host:port, is dropped with a named
+// warning, kept in sync with main()'s two validation layers.
+function resolveHeadsFromBodyConfig(bodyCfg) {
+    const seen = new Map();
+    const heads = [];
 
-    return ['url1', 'url2', 'url3'].map((key, i) => {
-        const cfg = urlsCfg[key] || {};
-        const active = cfg.active !== undefined ? !!cfg.active : key === 'url1';
-        return {
+    for (const key of ['head1', 'head2', 'head3']) {
+        const cfg = bodyCfg[key] || {};
+        const active = cfg.active !== undefined ? !!cfg.active : key === 'head1';
+        if (!active) continue;
+
+        const missing = ['host', 'port', 'webroot'].filter(k => !cfg[k]);
+        if (missing.length) {
+            vscode.window.showWarningMessage(
+                `PiServer: ${key} is active but missing required ${missing.join(' and ')} in pi-config.json — skipping that head.`
+            );
+            continue;
+        }
+
+        const binding = `${cfg.host}:${cfg.port}`;
+        if (seen.has(binding)) {
+            vscode.window.showWarningMessage(
+                `PiServer: ${key} and ${seen.get(binding)} both specify ${binding} in pi-config.json — skipping ${key}.`
+            );
+            continue;
+        }
+        seen.set(binding, key);
+
+        heads.push({
             key,
-            active,
-            host: cfg.host || baseHost,
-            port: cfg.port !== undefined ? cfg.port : basePort + i,
+            host: cfg.host,
+            port: cfg.port,
             projectName: cfg['project-name'] || ''
-        };
-    }).filter(h => h.active && h.projectName);
+        });
+    }
+
+    return heads;
 }
 
-// Looks for pi-config.json at the root of each workspace folder and resolves
-// its "urls" block. Returns null (not []) when no pi-config.json with a
-// "urls" section exists anywhere, so the caller can fall back to the
-// pre-multi-head legacy behavior instead of silently showing nothing.
+// Looks for pi-config.json in each workspace folder and resolves its
+// "body" block. Returns null (not []) when none exists, so the caller
+// falls back to pre-multi-head legacy behavior instead of showing nothing.
 function loadHeadsFromPiConfig() {
     const folders = vscode.workspace.workspaceFolders;
     if (!folders) return null;
     for (const f of folders) {
         const config = readPiConfig(f.uri.fsPath);
-        if (config && config.urls) return resolveHeadsFromUrlsConfig(config.urls);
+        if (config && config.body) return resolveHeadsFromBodyConfig(config.body);
     }
     return null;
 }
@@ -374,10 +390,9 @@ function findScriptPathFromPiConfig() {
     return null;
 }
 
-// Interpreter used to actually launch piserver.py — a different concern
-// from locating it. Explicit VS Code setting wins; otherwise read
-// "path-to-python" from the pi-config.json next to the resolved script;
-// otherwise fall back to whatever "python" resolves to on PATH.
+// Interpreter to launch piserver.py with (separate from locating the
+// script). Setting wins, then pi-config.json's "path-to-python", then
+// plain "python" on PATH.
 function resolvePythonPath(scriptPath) {
     const configured = vscode.workspace.getConfiguration('piserver').get('pythonPath', '').trim();
     if (configured) return configured;
@@ -496,12 +511,10 @@ async function resolveScriptPath() {
     return found;
 }
 
-// PowerShell parses a command LINE THAT STARTS WITH A QUOTED STRING as a
-// string expression, not an invocation — a second quoted token right after
-// it (the script path) is then a parse error ("Unexpected token"). The fix
-// is PowerShell's call operator, "&", which forces expression-mode. cmd.exe
-// and POSIX shells don't need it and don't choke on a bare quoted command,
-// so it's only added when the integrated terminal is actually PowerShell.
+// PowerShell parses a line starting with a quoted string as an expression,
+// not an invocation — a second quoted token (the script path) right after
+// becomes a parse error. "&" (call operator) forces expression-mode; cmd.exe
+// and POSIX shells don't need it.
 function buildLaunchCommand(pythonPath, scriptPath) {
     const shell = (vscode.env.shell || '').toLowerCase();
     const isPowerShell = shell.includes('powershell') || shell.includes('pwsh');

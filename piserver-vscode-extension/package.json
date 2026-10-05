@@ -2,9 +2,9 @@
     "name": "piserver-statusbar",
     "displayName": "PiServer Statusbar",
     "description": "Live status indicator for up to 3 simultaneous PiServer heads in the VS Code statusbar.",
-    "version": "0.5.7-beta",
+    "version": "0.5.8-beta",
     "publisher": "piserver",
-    "icon": "assets/images/python-logo.png",
+    "icon": "assets/python-logo.png",
     "engines": {
         "vscode": "^1.80.0"
     },
@@ -20,7 +20,7 @@
             "piserver-led": {
                 "description": "LED circle (color set at runtime via StatusBarItem.color)",
                 "default": {
-                    "fontPath": "./assets/fonts/centerdot.woff",
+                    "fontPath": "./assets/centerdot.woff",
                     "fontCharacter": "\\E900"
                 }
             }
@@ -29,6 +29,10 @@
             {
                 "command": "piserver.toggleServer",
                 "title": "PiServer: Start / Stop"
+            },
+            {
+                "command": "piserver.copyCurrentHeadUrl",
+                "title": "PiServer: Copy Current Head URL"
             }
         ],
         "configuration": {
