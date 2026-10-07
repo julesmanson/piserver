@@ -66,6 +66,7 @@ const SHUTDOWN_MSG = 'shutting down…';
 const NBSP_WIDTH_COMPENSATION = 1.4;
 
 function padToDisplayWidth(msg) {
+    if (msg.length > displayWidth) return msg.slice(0, displayWidth);
     const gap = displayWidth - msg.length;
     return gap > 0 ? msg + SPACE.repeat(Math.round(gap * NBSP_WIDTH_COMPENSATION)) : msg;
 }
@@ -94,14 +95,10 @@ function activate(context) {
     heads.forEach(h => { h.online = false; });
     primary = heads[0];
 
-    // Fixed display width = length of the longest of the possible messages,
-    // across every head's own display text.
-    displayWidth = Math.max(
-        ...heads.map(h => headDisplayText(h).length),
-        CHECKING_MSG.length,
-        OFFLINE_MSG.length,
-        SHUTDOWN_MSG.length
-    );
+    // Hardcoded to today's longest head ("127.0.0.1:8003 - PiServer Mock").
+    // Anything longer than this gets truncated in padToDisplayWidth() rather
+    // than resizing the item — update this if a head's text ever grows past it.
+    displayWidth = 30;
 
     // Higher priority = further LEFT in the right zone.
     // 148000-148005 is a deliberately oddball 6-figure range, chosen so no
