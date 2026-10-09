@@ -379,16 +379,35 @@ function resolveHeadsFromBodyConfig(bodyCfg) {
     return heads;
 }
 
-// Looks for pi-config.json in each workspace folder and resolves its
-// "body" block. Returns null (not []) when none exists, so the caller
-// falls back to pre-multi-head legacy behavior instead of showing nothing.
-function loadHeadsFromPiConfig() {
-    const folders = vscode.workspace.workspaceFolders;
-    if (!folders) return null;
-    for (const f of folders) {
-        const config = readPiConfig(f.uri.fsPath);
-        if (config && config.body) return resolveHeadsFromBodyConfig(config.body);
+// Finds pi-config.json's directory independent of whatever workspace is
+// open — mirrors resolveScriptPath()'s global-setting-first approach,
+// since the file always lives next to piserver.py (BASE_DIR in piserver.py).
+// Workspace-folder scanning is just the fallback for before that setting
+// has ever been populated.
+function findPiConfigDir() {
+    const configuredScript = vscode.workspace.getConfiguration('piserver').get('scriptPath', '').trim();
+    if (configuredScript && fs.existsSync(configuredScript)) {
+        return path.dirname(configuredScript);
     }
+    const folders = vscode.workspace.workspaceFolders;
+    if (folders) {
+        for (const f of folders) {
+            if (fs.existsSync(path.join(f.uri.fsPath, 'pi-config.json'))) {
+                return f.uri.fsPath;
+            }
+        }
+    }
+    return null;
+}
+
+// Resolves pi-config.json's "body" block from wherever findPiConfigDir()
+// locates it. Returns null (not []) when none exists, so the caller falls
+// back to pre-multi-head legacy behavior instead of showing nothing.
+function loadHeadsFromPiConfig() {
+    const dir = findPiConfigDir();
+    if (!dir) return null;
+    const config = readPiConfig(dir);
+    if (config && config.body) return resolveHeadsFromBodyConfig(config.body);
     return null;
 }
 
